@@ -1,5 +1,8 @@
 # Periods helper
 
+[![Dependencies status][dependencies]][dependencies-url]
+[![Release status][release]][release-url]
+
 JavaScript library for parsing and formatting periods.
 
 ## Install
@@ -39,3 +42,9 @@ import {getPeriods} from '@mtab/periods-helper';
 
 getPeriods('Q_2020_1', 10);
 ```
+
+[dependencies]: https://img.shields.io/librariesio/github/Slideworx/periods-helper
+[release]: https://img.shields.io/github/v/release/Slideworx/periods-helper
+
+[dependencies-url]: https://github.com/Slideworx/periods-helper/network/dependencies
+[release-url]: https://github.com/Slideworx/periods-helper/releases
