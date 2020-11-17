@@ -9,10 +9,14 @@
   "main": "dist/index.js",
   "repository": "Slideworx/periods-helper",
   "scripts": {
-    "build": "echo Script `build` not required",
+    "build": "babel --out-file dist/index.js src/index.js",
     "test": "echo Script `test` not required"
   },
   "devDependencies": {
-
+    "@babel/cli": "^7.12",
+    "@babel/core": "^7.12",
+    "@babel/plugin-transform-runtime": "^7.12",
+    "@babel/preset-env": "^7.12",
+    "@babel/runtime": "^7.12"
   }
 }
