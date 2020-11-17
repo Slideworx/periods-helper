@@ -1,0 +1,18 @@
+{
+  "name": "@mtab/periods-helper",
+  "version": "1.0.0",
+  "description": "",
+  "license": "MIT",
+  "files": [
+    "dist/"
+  ],
+  "main": "dist/index.js",
+  "repository": "Slideworx/periods-helper",
+  "scripts": {
+    "build": "echo Script `build` not required",
+    "test": "echo Script `test` not required"
+  },
+  "devDependencies": {
+
+  }
+}
