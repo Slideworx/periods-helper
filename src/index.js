@@ -191,6 +191,13 @@ export function getPeriod(notation) {
   year = Number(year);
   number = Number(number);
 
+  function handleOverflow(quantity) {
+    if (number > quantity) {
+      year = year + Math.ceil((number - quantity) / quantity);
+      number = number % quantity || quantity;
+    }
+  }
+
   const result = {
     date: {},
     type: dictionary[type]
@@ -218,6 +225,8 @@ export function getPeriod(notation) {
     case H:
     case H_RY:
     case H_YTD: {
+      handleOverflow(2);
+
       result.date.from = new Date(
         year,
         6 * (number - 1),
@@ -238,6 +247,8 @@ export function getPeriod(notation) {
     case Q:
     case Q_RY:
     case Q_YTD: {
+      handleOverflow(4);
+
       result.date.from = new Date(
         year,
         3 * (number - 1),
@@ -258,6 +269,8 @@ export function getPeriod(notation) {
     case BM:
     case BM_RY:
     case BM_YTD: {
+      handleOverflow(6);
+
       result.date.from = new Date(
         year,
         2 * (number - 1),
@@ -278,6 +291,8 @@ export function getPeriod(notation) {
     case M:
     case M_RY:
     case M_YTD: {
+      handleOverflow(12);
+
       result.date.from = new Date(
         year,
         number - 1,
@@ -379,13 +394,7 @@ export function getPeriods(notation, range) {
   switch (type) {
     case Y: {
       for (let i = 0; i < quantity; i++) {
-        result.push(
-          new Date(
-            descending ? year - i : year + i,
-            0,
-            1
-          )
-        );
+        result.push(`${ type }_${ descending ? year - i : year + i }`);
       }
 
       break;
@@ -393,83 +402,27 @@ export function getPeriods(notation, range) {
 
     case H:
     case H_RY:
-    case H_YTD: {
-      for (let i = 0; i < quantity; i++) {
-        result.push(
-          new Date(
-            year,
-            6 * ((descending ? number - i : number + i) - 1),
-            1
-          )
-        );
-      }
-
-      break;
-    }
+    case H_YTD:
 
     case Q:
     case Q_RY:
-    case Q_YTD: {
-      for (let i = 0; i < quantity; i++) {
-        result.push(
-          new Date(
-            year,
-            3 * ((descending ? number - i : number + i) - 1),
-            1
-          )
-        );
-      }
-
-      break;
-    }
+    case Q_YTD:
 
     case BM:
     case BM_RY:
-    case BM_YTD: {
-      for (let i = 0; i < quantity; i++) {
-        result.push(
-          new Date(
-            year,
-            2 * ((descending ? number - i : number + i) - 1),
-            1
-          )
-        );
-      }
-
-      break;
-    }
+    case BM_YTD:
 
     case M:
     case M_RY:
-    case M_YTD: {
-      for (let i = 0; i < quantity; i++) {
-        result.push(
-          new Date(
-            year,
-            (descending ? number - i : number + i) - 1,
-            1
-          )
-        );
-      }
-
-      break;
-    }
+    case M_YTD:
 
     case W:
     case W_YTD: {
-      // for (let i = 0; i < quantity; i++) {
-      //   result.push(
-      //     new Date(
-      //       year,
-      //       0,
-      //       1
-      //     )
-      //   );
-      // }
+      for (let i = 0; i < quantity; i++) {
+        result.push(`${ type }_${ year }_${ descending ? number - i : number + i }`);
+      }
 
-      // break;
-
-      throw new Error('Weeks are not yet supported');
+      break;
     }
 
     default: {
@@ -485,5 +438,5 @@ export function getPeriods(notation, range) {
     }
   }
 
-  return result.map((date) => getPeriod(getNotation(date, type)));
+  return result.map(getPeriod);
 }
