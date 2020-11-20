@@ -146,6 +146,14 @@ function getPeriod(notation) {
 
   year = Number(year);
   number = Number(number);
+
+  function handleOverflow(quantity) {
+    if (number > quantity) {
+      year = year + Math.ceil((number - quantity) / quantity);
+      number = number % quantity || quantity;
+    }
+  }
+
   var result = {
     date: {},
     type: dictionary[type]
@@ -164,6 +172,7 @@ function getPeriod(notation) {
     case H_RY:
     case H_YTD:
       {
+        handleOverflow(2);
         result.date.from = new Date(year, 6 * (number - 1), 1);
         result.date.to = new Date(year, 6 * number, 0);
         result.value = "".concat(year, " ").concat(H).concat(number);
@@ -174,6 +183,7 @@ function getPeriod(notation) {
     case Q_RY:
     case Q_YTD:
       {
+        handleOverflow(4);
         result.date.from = new Date(year, 3 * (number - 1), 1);
         result.date.to = new Date(year, 3 * number, 0);
         result.value = "".concat(year, " ").concat(Q).concat(number);
@@ -184,6 +194,7 @@ function getPeriod(notation) {
     case BM_RY:
     case BM_YTD:
       {
+        handleOverflow(6);
         result.date.from = new Date(year, 2 * (number - 1), 1);
         result.date.to = new Date(year, 2 * number, 0);
         result.value = "".concat(year, ".").concat(addLeadingZero(2 * number - 1), "/").concat(addLeadingZero(2 * number));
@@ -194,6 +205,7 @@ function getPeriod(notation) {
     case M_RY:
     case M_YTD:
       {
+        handleOverflow(12);
         result.date.from = new Date(year, number - 1, 1);
         result.date.to = new Date(year, number, 0);
         result.value = "".concat(year, ".").concat(addLeadingZero(number));
@@ -248,7 +260,7 @@ function getPeriods(notation, range) {
     case Y:
       {
         for (var i = 0; i < quantity; i++) {
-          result.push(new Date(descending ? year - i : year + i, 0, 1));
+          result.push("".concat(type, "_").concat(descending ? year - i : year + i));
         }
 
         break;
@@ -257,51 +269,23 @@ function getPeriods(notation, range) {
     case H:
     case H_RY:
     case H_YTD:
-      {
-        for (var _i = 0; _i < quantity; _i++) {
-          result.push(new Date(year, 6 * ((descending ? number - _i : number + _i) - 1), 1));
-        }
-
-        break;
-      }
-
     case Q:
     case Q_RY:
     case Q_YTD:
-      {
-        for (var _i2 = 0; _i2 < quantity; _i2++) {
-          result.push(new Date(year, 3 * ((descending ? number - _i2 : number + _i2) - 1), 1));
-        }
-
-        break;
-      }
-
     case BM:
     case BM_RY:
     case BM_YTD:
-      {
-        for (var _i3 = 0; _i3 < quantity; _i3++) {
-          result.push(new Date(year, 2 * ((descending ? number - _i3 : number + _i3) - 1), 1));
-        }
-
-        break;
-      }
-
     case M:
     case M_RY:
     case M_YTD:
-      {
-        for (var _i4 = 0; _i4 < quantity; _i4++) {
-          result.push(new Date(year, (descending ? number - _i4 : number + _i4) - 1, 1));
-        }
-
-        break;
-      }
-
     case W:
     case W_YTD:
       {
-        throw new Error('Weeks are not yet supported');
+        for (var _i = 0; _i < quantity; _i++) {
+          result.push("".concat(type, "_").concat(year, "_").concat(descending ? number - _i : number + _i));
+        }
+
+        break;
       }
 
     default:
@@ -318,7 +302,5 @@ function getPeriods(notation, range) {
       }
   }
 
-  return result.map(function (date) {
-    return getPeriod(getNotation(date, type));
-  });
+  return result.map(getPeriod);
 }
