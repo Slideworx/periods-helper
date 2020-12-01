@@ -252,7 +252,7 @@ function getPeriods(notation, range) {
 
   year = Number(year);
   number = Number(number);
-  var descending = range < 0;
+  var ascending = range > 0;
   var quantity = Math.abs(range);
   var result = [];
 
@@ -260,7 +260,7 @@ function getPeriods(notation, range) {
     case Y:
       {
         for (var i = 0; i < quantity; i++) {
-          result.push("".concat(type, "_").concat(descending ? year - i : year + i));
+          result.push("".concat(type, "_").concat(ascending ? year + i : year - i));
         }
 
         break;
@@ -282,7 +282,7 @@ function getPeriods(notation, range) {
     case W_YTD:
       {
         for (var _i = 0; _i < quantity; _i++) {
-          result.push("".concat(type, "_").concat(year, "_").concat(descending ? number - _i : number + _i));
+          result[ascending ? 'push' : 'unshift']("".concat(type, "_").concat(year, "_").concat(ascending ? number + _i : number - _i));
         }
 
         break;
@@ -291,14 +291,6 @@ function getPeriods(notation, range) {
     default:
       {
         throw new Error('Invalid type');
-      }
-  }
-
-  switch (true) {
-    case descending:
-      {
-        result.reverse();
-        break;
       }
   }
 
