@@ -386,7 +386,7 @@ export function getPeriods(notation, range) {
   year = Number(year);
   number = Number(number);
 
-  const descending = range < 0;
+  const ascending = range > 0;
   const quantity = Math.abs(range);
 
   const result = [];
@@ -394,7 +394,7 @@ export function getPeriods(notation, range) {
   switch (type) {
     case Y: {
       for (let i = 0; i < quantity; i++) {
-        result.push(`${ type }_${ descending ? year - i : year + i }`);
+        result.push(`${ type }_${ ascending ? year + i : year - i }`);
       }
 
       break;
@@ -419,7 +419,7 @@ export function getPeriods(notation, range) {
     case W:
     case W_YTD: {
       for (let i = 0; i < quantity; i++) {
-        result.push(`${ type }_${ year }_${ descending ? number - i : number + i }`);
+        result[ascending ? 'push' : 'unshift'](`${ type }_${ year }_${ ascending ? number + i : number - i }`);
       }
 
       break;
@@ -427,14 +427,6 @@ export function getPeriods(notation, range) {
 
     default: {
       throw new Error('Invalid type');
-    }
-  }
-
-  switch (true) {
-    case descending: {
-      result.reverse();
-
-      break;
     }
   }
 
