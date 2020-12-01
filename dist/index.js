@@ -38,6 +38,11 @@ function addLeadingZero(number) {
   return number < 10 ? "0".concat(number) : number;
 }
 
+function getMonday(year) {
+  var day = new Date(year, 0, 1).getDay() || 7;
+  return new Date(year, 0, day < 5 ? 2 - day : 9 - day).getTime();
+}
+
 var dictionary = (_dictionary = {}, (0, _defineProperty2.default)(_dictionary, Y, {
   description: 'Years',
   label: 'Year'
@@ -127,7 +132,8 @@ function getNotation(date, type) {
     case W:
     case W_YTD:
       {
-        throw new Error('Weeks are not yet supported');
+        var monday = getMonday(year);
+        return "".concat(type, "_").concat(year, "_").concat(Math.ceil((date - monday) / 604800000));
       }
 
     default:
@@ -215,7 +221,11 @@ function getPeriod(notation) {
     case W:
     case W_YTD:
       {
-        throw new Error('Weeks are not yet supported');
+        var monday = getMonday(year);
+        result.date.from = new Date(monday + 7 * (number - 1) * 86400000);
+        result.date.to = new Date(monday + (7 * number - 1) * 86400000);
+        result.value = "".concat(year, " ").concat(W).concat(addLeadingZero(number));
+        break;
       }
 
     default:
