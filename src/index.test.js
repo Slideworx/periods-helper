@@ -278,14 +278,14 @@ describe('getNotation', () => {
     const date = new Date(2021, 0, 0);
     const type = W;
 
-    expect(() => getNotation(date, type)).toThrow();
+    expect(getNotation(date, type)).toBe(`${ W }_2020_53`);
   });
 
   test(W_YTD, () => {
     const date = new Date(2021, 0, 0);
     const type = W_YTD;
 
-    expect(() => getNotation(date, type)).toThrow();
+    expect(getNotation(date, type)).toBe(`${ W_YTD }_2020_53`);
   });
 });
 
@@ -464,13 +464,27 @@ describe('getPeriod', () => {
   test(W, () => {
     const notation = `${ W }_2020_1`;
 
-    expect(() => getPeriod(notation)).toThrow();
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2020, 0, -1),
+        to: new Date(2020, 0, 5)
+      },
+      type: dictionary[W],
+      value: `2020 ${ W }01`
+    });
   });
 
   test(W_YTD, () => {
     const notation = `${ W_YTD }_2020_1`;
 
-    expect(() => getPeriod(notation)).toThrow();
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2020, 0, 1),
+        to: new Date(2020, 0, 5)
+      },
+      type: dictionary[W_YTD],
+      value: `2020 ${ W }01 ${ YTD }`
+    });
   });
 });
 
@@ -650,13 +664,25 @@ describe('getPeriods', () => {
     const notation = `${ W }_2020_1`;
     const range = 5;
 
-    expect(() => getPeriods(notation, range)).toThrow();
+    expect(getPeriods(notation, range)).toEqual([
+      getPeriod(`${ W }_2020_1`),
+      getPeriod(`${ W }_2020_2`),
+      getPeriod(`${ W }_2020_3`),
+      getPeriod(`${ W }_2020_4`),
+      getPeriod(`${ W }_2020_5`)
+    ]);
   });
 
   test(W_YTD, () => {
     const notation = `${ W_YTD }_2020_1`;
     const range = 5;
 
-    expect(() => getPeriods(notation, range)).toThrow();
+    expect(getPeriods(notation, range)).toEqual([
+      getPeriod(`${ W_YTD }_2020_1`),
+      getPeriod(`${ W_YTD }_2020_2`),
+      getPeriod(`${ W_YTD }_2020_3`),
+      getPeriod(`${ W_YTD }_2020_4`),
+      getPeriod(`${ W_YTD }_2020_5`)
+    ]);
   });
 });

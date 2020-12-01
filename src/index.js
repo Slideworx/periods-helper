@@ -40,6 +40,12 @@ function addLeadingZero(number) {
   return number < 10 ? `0${ number }` : number;
 }
 
+function getMonday(year) {
+  const day = new Date(year, 0, 1).getDay() || 7;
+
+  return new Date(year, 0, day < 5 ? 2 - day : 9 - day).getTime();
+}
+
 
 
 /**
@@ -160,9 +166,9 @@ export function getNotation(date, type) {
 
     case W:
     case W_YTD: {
-      // return `${ type }_${ year }_1`;
+      const monday = getMonday(year);
 
-      throw new Error('Weeks are not yet supported');
+      return `${ type }_${ year }_${ Math.ceil((date - monday) / 604800000) }`;
     }
 
     default: {
@@ -312,23 +318,19 @@ export function getPeriod(notation) {
 
     case W:
     case W_YTD: {
-      // result.date.from = new Date(
-      //   year,
-      //   0,
-      //   1
-      // );
+      const monday = getMonday(year);
 
-      // result.date.to = new Date(
-      //   year,
-      //   0,
-      //   1
-      // );
+      result.date.from = new Date(
+        monday + 7 * (number - 1) * 86400000
+      );
 
-      // result.value = `${ year } ${ W }${ addLeadingZero(number) }`;
+      result.date.to = new Date(
+        monday + (7 * number - 1) * 86400000
+      );
 
-      // break;
+      result.value = `${ year } ${ W }${ addLeadingZero(number) }`;
 
-      throw new Error('Weeks are not yet supported');
+      break;
     }
 
     default: {
