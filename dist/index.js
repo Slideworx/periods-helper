@@ -154,9 +154,9 @@ function getPeriod(notation) {
   number = Number(number);
 
   function handleOverflow(quantity) {
-    if (number > quantity) {
+    if (number < 1 || number > quantity) {
       year = year + Math.ceil((number - quantity) / quantity);
-      number = number % quantity || quantity;
+      number = Math.abs(number + quantity) % quantity || quantity;
     }
   }
 
