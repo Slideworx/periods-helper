@@ -1,4 +1,4 @@
-import {dictionary, getNotation, getPeriod, getPeriods} from '.';
+import {dictionary, getNotation, getPeriod, getPeriods, types} from '.';
 
 
 
@@ -684,5 +684,99 @@ describe('getPeriods', () => {
       getPeriod(`${ W_YTD }_2020_4`),
       getPeriod(`${ W_YTD }_2020_5`)
     ]);
+  });
+});
+
+
+
+describe('types', () => {
+  test(Y, () => {
+    const type = Y;
+
+    expect(typeof types[type]).toBe('string');
+  });
+
+  test(H, () => {
+    const type = H;
+
+    expect(typeof types[type]).toBe('string');
+  });
+
+  test(H_RY, () => {
+    const type = H_RY;
+
+    expect(typeof types[type]).toBe('string');
+  });
+
+  test(H_YTD, () => {
+    const type = H_YTD;
+
+    expect(typeof types[type]).toBe('string');
+  });
+
+  test(Q, () => {
+    const type = Q;
+
+    expect(typeof types[type]).toBe('string');
+  });
+
+  test(Q_RY, () => {
+    const type = Q_RY;
+
+    expect(typeof types[type]).toBe('string');
+  });
+
+  test(Q_YTD, () => {
+    const type = Q_YTD;
+
+    expect(typeof types[type]).toBe('string');
+  });
+
+  test(BM, () => {
+    const type = BM;
+
+    expect(typeof types[type]).toBe('string');
+  });
+
+  test(BM_RY, () => {
+    const type = BM_RY;
+
+    expect(typeof types[type]).toBe('string');
+  });
+
+  test(BM_YTD, () => {
+    const type = BM_YTD;
+
+    expect(typeof types[type]).toBe('string');
+  });
+
+  test(M, () => {
+    const type = M;
+
+    expect(typeof types[type]).toBe('string');
+  });
+
+  test(M_RY, () => {
+    const type = M_RY;
+
+    expect(typeof types[type]).toBe('string');
+  });
+
+  test(M_YTD, () => {
+    const type = M_YTD;
+
+    expect(typeof types[type]).toBe('string');
+  });
+
+  test(W, () => {
+    const type = W;
+
+    expect(typeof types[type]).toBe('string');
+  });
+
+  test(W_YTD, () => {
+    const type = W_YTD;
+
+    expect(typeof types[type]).toBe('string');
   });
 });

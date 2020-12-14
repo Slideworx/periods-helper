@@ -434,3 +434,32 @@ export function getPeriods(notation, range) {
 
   return result.map(getPeriod);
 }
+
+
+
+/**
+ * @const {Object} types
+ * @access public
+ */
+export const types = {
+  [Y]: Y,
+
+  [H]: H,
+  [H_RY]: H_RY,
+  [H_YTD]: H_YTD,
+
+  [Q]: Q,
+  [Q_RY]: Q_RY,
+  [Q_YTD]: Q_YTD,
+
+  [BM]: BM,
+  [BM_RY]: BM_RY,
+  [BM_YTD]: BM_YTD,
+
+  [M]: M,
+  [M_RY]: M_RY,
+  [M_YTD]: M_YTD,
+
+  [W]: W,
+  [W_YTD]: W_YTD
+};
