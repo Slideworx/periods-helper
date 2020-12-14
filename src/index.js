@@ -396,7 +396,7 @@ export function getPeriods(notation, range) {
   switch (type) {
     case Y: {
       for (let i = 0; i < quantity; i++) {
-        result.push(`${ type }_${ ascending ? year + i : year - i }`);
+        result[ascending ? 'push' : 'unshift'](`${ type }_${ ascending ? year + i : year - i }`);
       }
 
       break;
