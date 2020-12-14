@@ -270,7 +270,7 @@ function getPeriods(notation, range) {
     case Y:
       {
         for (var i = 0; i < quantity; i++) {
-          result.push("".concat(type, "_").concat(ascending ? year + i : year - i));
+          result[ascending ? 'push' : 'unshift']("".concat(type, "_").concat(ascending ? year + i : year - i));
         }
 
         break;
