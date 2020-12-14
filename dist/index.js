@@ -8,13 +8,13 @@ Object.defineProperty(exports, "__esModule", {
 exports.getNotation = getNotation;
 exports.getPeriod = getPeriod;
 exports.getPeriods = getPeriods;
-exports.dictionary = void 0;
+exports.types = exports.dictionary = void 0;
 
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
-var _dictionary;
+var _dictionary, _types;
 
 var Y = 'Y';
 var H = 'H';
@@ -306,3 +306,6 @@ function getPeriods(notation, range) {
 
   return result.map(getPeriod);
 }
+
+var types = (_types = {}, (0, _defineProperty2.default)(_types, Y, Y), (0, _defineProperty2.default)(_types, H, H), (0, _defineProperty2.default)(_types, H_RY, H_RY), (0, _defineProperty2.default)(_types, H_YTD, H_YTD), (0, _defineProperty2.default)(_types, Q, Q), (0, _defineProperty2.default)(_types, Q_RY, Q_RY), (0, _defineProperty2.default)(_types, Q_YTD, Q_YTD), (0, _defineProperty2.default)(_types, BM, BM), (0, _defineProperty2.default)(_types, BM_RY, BM_RY), (0, _defineProperty2.default)(_types, BM_YTD, BM_YTD), (0, _defineProperty2.default)(_types, M, M), (0, _defineProperty2.default)(_types, M_RY, M_RY), (0, _defineProperty2.default)(_types, M_YTD, M_YTD), (0, _defineProperty2.default)(_types, W, W), (0, _defineProperty2.default)(_types, W_YTD, W_YTD), _types);
+exports.types = types;
