@@ -438,6 +438,70 @@ export function getPeriods(notation, range) {
 
 
 /**
+ * @function getType
+ * @access public
+ *
+ * @param {string} value
+ *
+ * @returns {string}
+ */
+export function getType(value) {
+  let result = '';
+
+  switch (true) {
+    case value.includes(H): {
+      result = H;
+
+      break;
+    }
+
+    case value.includes(Q): {
+      result = Q;
+
+      break;
+    }
+
+    case value.includes('.') && value.includes('/'): {
+      result = BM;
+
+      break;
+    }
+
+    case value.includes('.'): {
+      result = M;
+
+      break;
+    }
+
+    case value.includes(W): {
+      result = W;
+
+      break;
+    }
+
+    default: {
+      result = Y;
+    }
+  }
+
+  switch (true) {
+    case value.includes(RY): {
+      return `${ result }${ RY }`;
+    }
+
+    case value.includes(YTD): {
+      return `${ result }${ YTD }`;
+    }
+
+    default: {
+      return result;
+    }
+  }
+}
+
+
+
+/**
  * @const {Object} types
  * @access public
  */

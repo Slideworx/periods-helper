@@ -1,4 +1,4 @@
-import {dictionary, getNotation, getPeriod, getPeriods, types} from '.';
+import {dictionary, getNotation, getPeriod, getPeriods, getType, types} from '.';
 
 
 
@@ -684,6 +684,100 @@ describe('getPeriods', () => {
       getPeriod(`${ W_YTD }_2020_4`),
       getPeriod(`${ W_YTD }_2020_5`)
     ]);
+  });
+});
+
+
+
+describe('getType', () => {
+  test(Y, () => {
+    const value = `2020`;
+
+    expect(getType(value)).toBe(Y);
+  });
+
+  test(H, () => {
+    const value = `2020 ${ H }1`;
+
+    expect(getType(value)).toBe(H);
+  });
+
+  test(H_RY, () => {
+    const value = `2020 ${ H }1 ${ RY }`;
+
+    expect(getType(value)).toBe(H_RY);
+  });
+
+  test(H_YTD, () => {
+    const value = `2020 ${ H }1 ${ YTD }`;
+
+    expect(getType(value)).toBe(H_YTD);
+  });
+
+  test(Q, () => {
+    const value = `2020 ${ Q }1`;
+
+    expect(getType(value)).toBe(Q);
+  });
+
+  test(Q_RY, () => {
+    const value = `2020 ${ Q }1 ${ RY }`;
+
+    expect(getType(value)).toBe(Q_RY);
+  });
+
+  test(Q_YTD, () => {
+    const value = `2020 ${ Q }1 ${ YTD }`;
+
+    expect(getType(value)).toBe(Q_YTD);
+  });
+
+  test(BM, () => {
+    const value = `2020.01/02`;
+
+    expect(getType(value)).toBe(BM);
+  });
+
+  test(BM_RY, () => {
+    const value = `2020.01/02 ${ RY }`;
+
+    expect(getType(value)).toBe(BM_RY);
+  });
+
+  test(BM_YTD, () => {
+    const value = `2020.01/02 ${ YTD }`;
+
+    expect(getType(value)).toBe(BM_YTD);
+  });
+
+  test(M, () => {
+    const value = `2020.01`;
+
+    expect(getType(value)).toBe(M);
+  });
+
+  test(M_RY, () => {
+    const value = `2020.01 ${ RY }`;
+
+    expect(getType(value)).toBe(M_RY);
+  });
+
+  test(M_YTD, () => {
+    const value = `2020.01 ${ YTD }`;
+
+    expect(getType(value)).toBe(M_YTD);
+  });
+
+  test(W, () => {
+    const value = `2020 ${ W }01`;
+
+    expect(getType(value)).toBe(W);
+  });
+
+  test(W_YTD, () => {
+    const value = `2020 ${ W }01 ${ YTD }`;
+
+    expect(getType(value)).toBe(W_YTD);
   });
 });
 
