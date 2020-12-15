@@ -43,6 +43,20 @@ import {getPeriods} from '@mtab/periods-helper';
 getPeriods('Q_2020_1', 10);
 ```
 
+### getType
+
+```js
+import {getType} from '@mtab/periods-helper';
+
+getType('2020 Q1');
+```
+
+### types
+
+```js
+import {types} from '@mtab/periods-helper';
+```
+
 [dependencies]: https://img.shields.io/librariesio/github/Slideworx/periods-helper
 [release]: https://img.shields.io/github/v/release/Slideworx/periods-helper
 
