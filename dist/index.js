@@ -8,6 +8,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.getNotation = getNotation;
 exports.getPeriod = getPeriod;
 exports.getPeriods = getPeriods;
+exports.getType = getType;
 exports.types = exports.dictionary = void 0;
 
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
@@ -305,6 +306,64 @@ function getPeriods(notation, range) {
   }
 
   return result.map(getPeriod);
+}
+
+function getType(value) {
+  var result = '';
+
+  switch (true) {
+    case value.includes(H):
+      {
+        result = H;
+        break;
+      }
+
+    case value.includes(Q):
+      {
+        result = Q;
+        break;
+      }
+
+    case value.includes('.') && value.includes('/'):
+      {
+        result = BM;
+        break;
+      }
+
+    case value.includes('.'):
+      {
+        result = M;
+        break;
+      }
+
+    case value.includes(W):
+      {
+        result = W;
+        break;
+      }
+
+    default:
+      {
+        result = Y;
+      }
+  }
+
+  switch (true) {
+    case value.includes(RY):
+      {
+        return "".concat(result).concat(RY);
+      }
+
+    case value.includes(YTD):
+      {
+        return "".concat(result).concat(YTD);
+      }
+
+    default:
+      {
+        return result;
+      }
+  }
 }
 
 var types = (_types = {}, (0, _defineProperty2.default)(_types, Y, Y), (0, _defineProperty2.default)(_types, H, H), (0, _defineProperty2.default)(_types, H_RY, H_RY), (0, _defineProperty2.default)(_types, H_YTD, H_YTD), (0, _defineProperty2.default)(_types, Q, Q), (0, _defineProperty2.default)(_types, Q_RY, Q_RY), (0, _defineProperty2.default)(_types, Q_YTD, Q_YTD), (0, _defineProperty2.default)(_types, BM, BM), (0, _defineProperty2.default)(_types, BM_RY, BM_RY), (0, _defineProperty2.default)(_types, BM_YTD, BM_YTD), (0, _defineProperty2.default)(_types, M, M), (0, _defineProperty2.default)(_types, M_RY, M_RY), (0, _defineProperty2.default)(_types, M_YTD, M_YTD), (0, _defineProperty2.default)(_types, W, W), (0, _defineProperty2.default)(_types, W_YTD, W_YTD), _types);
