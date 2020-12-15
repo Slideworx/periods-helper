@@ -446,55 +446,93 @@ export function getPeriods(notation, range) {
  * @returns {string}
  */
 export function getType(value) {
-  let result = '';
-
-  switch (true) {
-    case value.includes(H): {
-      result = H;
-
-      break;
-    }
-
-    case value.includes(Q): {
-      result = Q;
-
-      break;
-    }
-
-    case value.includes('.') && value.includes('/'): {
-      result = BM;
-
-      break;
-    }
-
-    case value.includes('.'): {
-      result = M;
-
-      break;
-    }
-
-    case value.includes(W): {
-      result = W;
-
-      break;
-    }
-
-    default: {
-      result = Y;
-    }
+  function match(string) {
+    return new RegExp(string).test(value);
   }
 
   switch (true) {
-    case value.includes(RY): {
-      return `${ result }${ RY }`;
+    case match('^[0-9]{4}$'): {
+      return Y;
     }
 
-    case value.includes(YTD): {
-      return `${ result }${ YTD }`;
+    case match(`^[0-9]{4} ${ H }[0-9]`): {
+      switch (true) {
+        case match(YTD): {
+          return H_YTD;
+        }
+
+        case match(RY): {
+          return H_RY;
+        }
+
+        default: {
+          return H;
+        }
+      }
+    }
+
+    case match(`^[0-9]{4} ${ Q }[0-9]`): {
+      switch (true) {
+        case match(YTD): {
+          return Q_YTD;
+        }
+
+        case match(RY): {
+          return Q_RY;
+        }
+
+        default: {
+          return Q;
+        }
+      }
+    }
+
+    case match('^[0-9]{4}.[0-9]{2}.[0-9]{2}'): {
+      switch (true) {
+        case match(YTD): {
+          return BM_YTD;
+        }
+
+        case match(RY): {
+          return BM_RY;
+        }
+
+        default: {
+          return BM;
+        }
+      }
+    }
+
+    case match('^[0-9]{4}.[0-9]{2}'): {
+      switch (true) {
+        case match(YTD): {
+          return M_YTD;
+        }
+
+        case match(RY): {
+          return M_RY;
+        }
+
+        default: {
+          return M;
+        }
+      }
+    }
+
+    case match(`^[0-9]{4} ${ W }[0-9]{2}`): {
+      switch (true) {
+        case match(YTD): {
+          return W_YTD;
+        }
+
+        default: {
+          return W;
+        }
+      }
     }
 
     default: {
-      return result;
+      return null;
     }
   }
 }
