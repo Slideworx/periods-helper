@@ -13,23 +13,23 @@
 const Y = 'Y';
 
 const H = 'H';
-const H_RY = 'HRY';
-const H_YTD = 'HYTD';
+const HRY = 'HRY';
+const HYTD = 'HYTD';
 
 const Q = 'Q';
-const Q_RY = 'QRY';
-const Q_YTD = 'QYTD';
+const QRY = 'QRY';
+const QYTD = 'QYTD';
 
 const BM = 'BM';
-const BM_RY = 'BMRY';
-const BM_YTD = 'BMYTD';
+const BMRY = 'BMRY';
+const BMYTD = 'BMYTD';
 
 const M = 'M';
-const M_RY = 'MRY';
-const M_YTD = 'MYTD';
+const MRY = 'MRY';
+const MYTD = 'MYTD';
 
 const W = 'W';
-const W_YTD = 'WYTD';
+const WYTD = 'WYTD';
 
 const RY = 'RY';
 const YTD = 'YTD';
@@ -62,11 +62,11 @@ export const dictionary = {
     description: 'Half-years',
     label: 'Half-year'
   },
-  [H_RY]: {
+  [HRY]: {
     description: `2 half-years ending at the given ${ H }`,
     label: 'Rolling year (from half-years)'
   },
-  [H_YTD]: {
+  [HYTD]: {
     description: 'Cumulative half-years from beginning of the year',
     label: 'Year-to-date (from half-years)'
   },
@@ -75,11 +75,11 @@ export const dictionary = {
     description: 'Quarters',
     label: 'Quarter'
   },
-  [Q_RY]: {
+  [QRY]: {
     description: `4 quarters ending at the given ${ Q }`,
     label: 'Rolling year (from quarters)'
   },
-  [Q_YTD]: {
+  [QYTD]: {
     description: 'Cumulative quarters from beginning of the year',
     label: 'Year-to-date (from quarters)'
   },
@@ -88,11 +88,11 @@ export const dictionary = {
     description: 'Bi-months',
     label: 'Bi-month'
   },
-  [BM_RY]: {
+  [BMRY]: {
     description: `6 bi-months ending at the given ${ BM }`,
     label: 'Rolling year (from bi-months)'
   },
-  [BM_YTD]: {
+  [BMYTD]: {
     description: 'Cumulative bi-months from beginning of the year',
     label: 'Year-to-date (from bi-months)'
   },
@@ -101,11 +101,11 @@ export const dictionary = {
     description: 'Months',
     label: 'Month'
   },
-  [M_RY]: {
+  [MRY]: {
     description: `12 months ending at the given ${ M }`,
     label: 'Rolling year (from months)'
   },
-  [M_YTD]: {
+  [MYTD]: {
     description: 'Cumulative months from beginning of the year',
     label: 'Year-to-date (from months)'
   },
@@ -114,7 +114,7 @@ export const dictionary = {
     description: 'Weeks',
     label: 'Week'
   },
-  [W_YTD]: {
+  [WYTD]: {
     description: 'Cumulative weeks from beginning of the year',
     label: 'Year-to-date (from weeks)'
   }
@@ -141,31 +141,31 @@ export function getNotation(date, type) {
     }
 
     case H:
-    case H_RY:
-    case H_YTD: {
+    case HRY:
+    case HYTD: {
       return `${ type }_${ year }_${ Math.ceil(month / 6) }`;
     }
 
     case Q:
-    case Q_RY:
-    case Q_YTD: {
+    case QRY:
+    case QYTD: {
       return `${ type }_${ year }_${ Math.ceil(month / 3) }`;
     }
 
     case BM:
-    case BM_RY:
-    case BM_YTD: {
+    case BMRY:
+    case BMYTD: {
       return `${ type }_${ year }_${ Math.ceil(month / 2) }`;
     }
 
     case M:
-    case M_RY:
-    case M_YTD: {
+    case MRY:
+    case MYTD: {
       return `${ type }_${ year }_${ month }`;
     }
 
     case W:
-    case W_YTD: {
+    case WYTD: {
       const monday = getMonday(year);
 
       return `${ type }_${ year }_${ Math.ceil((date - monday) / 604800000) }`;
@@ -229,8 +229,8 @@ export function getPeriod(notation) {
     }
 
     case H:
-    case H_RY:
-    case H_YTD: {
+    case HRY:
+    case HYTD: {
       handleOverflow(2);
 
       result.date.from = new Date(
@@ -251,8 +251,8 @@ export function getPeriod(notation) {
     }
 
     case Q:
-    case Q_RY:
-    case Q_YTD: {
+    case QRY:
+    case QYTD: {
       handleOverflow(4);
 
       result.date.from = new Date(
@@ -273,8 +273,8 @@ export function getPeriod(notation) {
     }
 
     case BM:
-    case BM_RY:
-    case BM_YTD: {
+    case BMRY:
+    case BMYTD: {
       handleOverflow(6);
 
       result.date.from = new Date(
@@ -295,8 +295,8 @@ export function getPeriod(notation) {
     }
 
     case M:
-    case M_RY:
-    case M_YTD: {
+    case MRY:
+    case MYTD: {
       handleOverflow(12);
 
       result.date.from = new Date(
@@ -317,7 +317,7 @@ export function getPeriod(notation) {
     }
 
     case W:
-    case W_YTD: {
+    case WYTD: {
       const monday = getMonday(year);
 
       result.date.from = new Date(
@@ -403,23 +403,23 @@ export function getPeriods(notation, range) {
     }
 
     case H:
-    case H_RY:
-    case H_YTD:
+    case HRY:
+    case HYTD:
 
     case Q:
-    case Q_RY:
-    case Q_YTD:
+    case QRY:
+    case QYTD:
 
     case BM:
-    case BM_RY:
-    case BM_YTD:
+    case BMRY:
+    case BMYTD:
 
     case M:
-    case M_RY:
-    case M_YTD:
+    case MRY:
+    case MYTD:
 
     case W:
-    case W_YTD: {
+    case WYTD: {
       for (let i = 0; i < quantity; i++) {
         result[ascending ? 'push' : 'unshift'](`${ type }_${ year }_${ ascending ? number + i : number - i }`);
       }
@@ -458,11 +458,11 @@ export function getType(value) {
     case match(`^[0-9]{4} ${ H }[0-9]`): {
       switch (true) {
         case match(YTD): {
-          return H_YTD;
+          return HYTD;
         }
 
         case match(RY): {
-          return H_RY;
+          return HRY;
         }
 
         default: {
@@ -474,11 +474,11 @@ export function getType(value) {
     case match(`^[0-9]{4} ${ Q }[0-9]`): {
       switch (true) {
         case match(YTD): {
-          return Q_YTD;
+          return QYTD;
         }
 
         case match(RY): {
-          return Q_RY;
+          return QRY;
         }
 
         default: {
@@ -490,11 +490,11 @@ export function getType(value) {
     case match('^[0-9]{4}.[0-9]{2}.[0-9]{2}'): {
       switch (true) {
         case match(YTD): {
-          return BM_YTD;
+          return BMYTD;
         }
 
         case match(RY): {
-          return BM_RY;
+          return BMRY;
         }
 
         default: {
@@ -506,11 +506,11 @@ export function getType(value) {
     case match('^[0-9]{4}.[0-9]{2}'): {
       switch (true) {
         case match(YTD): {
-          return M_YTD;
+          return MYTD;
         }
 
         case match(RY): {
-          return M_RY;
+          return MRY;
         }
 
         default: {
@@ -522,7 +522,7 @@ export function getType(value) {
     case match(`^[0-9]{4} ${ W }[0-9]{2}`): {
       switch (true) {
         case match(YTD): {
-          return W_YTD;
+          return WYTD;
         }
 
         default: {
@@ -547,21 +547,21 @@ export const types = {
   [Y]: Y,
 
   [H]: H,
-  [H_RY]: H_RY,
-  [H_YTD]: H_YTD,
+  [HRY]: HRY,
+  [HYTD]: HYTD,
 
   [Q]: Q,
-  [Q_RY]: Q_RY,
-  [Q_YTD]: Q_YTD,
+  [QRY]: QRY,
+  [QYTD]: QYTD,
 
   [BM]: BM,
-  [BM_RY]: BM_RY,
-  [BM_YTD]: BM_YTD,
+  [BMRY]: BMRY,
+  [BMYTD]: BMYTD,
 
   [M]: M,
-  [M_RY]: M_RY,
-  [M_YTD]: M_YTD,
+  [MRY]: MRY,
+  [MYTD]: MYTD,
 
   [W]: W,
-  [W_YTD]: W_YTD
+  [WYTD]: WYTD
 };

@@ -5,23 +5,23 @@ import {dictionary, getNotation, getPeriod, getPeriods, getType, types} from '.'
 const Y = 'Y';
 
 const H = 'H';
-const H_RY = 'HRY';
-const H_YTD = 'HYTD';
+const HRY = 'HRY';
+const HYTD = 'HYTD';
 
 const Q = 'Q';
-const Q_RY = 'QRY';
-const Q_YTD = 'QYTD';
+const QRY = 'QRY';
+const QYTD = 'QYTD';
 
 const BM = 'BM';
-const BM_RY = 'BMRY';
-const BM_YTD = 'BMYTD';
+const BMRY = 'BMRY';
+const BMYTD = 'BMYTD';
 
 const M = 'M';
-const M_RY = 'MRY';
-const M_YTD = 'MYTD';
+const MRY = 'MRY';
+const MYTD = 'MYTD';
 
 const W = 'W';
-const W_YTD = 'WYTD';
+const WYTD = 'WYTD';
 
 const RY = 'RY';
 const YTD = 'YTD';
@@ -49,8 +49,8 @@ describe('dictionary', () => {
       });
   });
 
-  test(H_RY, () => {
-    const type = H_RY;
+  test(HRY, () => {
+    const type = HRY;
 
     Object
       .values(dictionary[type])
@@ -59,8 +59,8 @@ describe('dictionary', () => {
       });
   });
 
-  test(H_YTD, () => {
-    const type = H_YTD;
+  test(HYTD, () => {
+    const type = HYTD;
 
     Object
       .values(dictionary[type])
@@ -79,8 +79,8 @@ describe('dictionary', () => {
       });
   });
 
-  test(Q_RY, () => {
-    const type = Q_RY;
+  test(QRY, () => {
+    const type = QRY;
 
     Object
       .values(dictionary[type])
@@ -89,8 +89,8 @@ describe('dictionary', () => {
       });
   });
 
-  test(Q_YTD, () => {
-    const type = Q_YTD;
+  test(QYTD, () => {
+    const type = QYTD;
 
     Object
       .values(dictionary[type])
@@ -109,8 +109,8 @@ describe('dictionary', () => {
       });
   });
 
-  test(BM_RY, () => {
-    const type = BM_RY;
+  test(BMRY, () => {
+    const type = BMRY;
 
     Object
       .values(dictionary[type])
@@ -119,8 +119,8 @@ describe('dictionary', () => {
       });
   });
 
-  test(BM_YTD, () => {
-    const type = BM_YTD;
+  test(BMYTD, () => {
+    const type = BMYTD;
 
     Object
       .values(dictionary[type])
@@ -139,8 +139,8 @@ describe('dictionary', () => {
       });
   });
 
-  test(M_RY, () => {
-    const type = M_RY;
+  test(MRY, () => {
+    const type = MRY;
 
     Object
       .values(dictionary[type])
@@ -149,8 +149,8 @@ describe('dictionary', () => {
       });
   });
 
-  test(M_YTD, () => {
-    const type = M_YTD;
+  test(MYTD, () => {
+    const type = MYTD;
 
     Object
       .values(dictionary[type])
@@ -169,8 +169,8 @@ describe('dictionary', () => {
       });
   });
 
-  test(W_YTD, () => {
-    const type = W_YTD;
+  test(WYTD, () => {
+    const type = WYTD;
 
     Object
       .values(dictionary[type])
@@ -197,18 +197,18 @@ describe('getNotation', () => {
     expect(getNotation(date, type)).toBe(`${ H }_2020_2`);
   });
 
-  test(H_RY, () => {
+  test(HRY, () => {
     const date = new Date(2021, 0, 0);
-    const type = H_RY;
+    const type = HRY;
 
-    expect(getNotation(date, type)).toBe(`${ H_RY }_2020_2`);
+    expect(getNotation(date, type)).toBe(`${ HRY }_2020_2`);
   });
 
-  test(H_YTD, () => {
+  test(HYTD, () => {
     const date = new Date(2021, 0, 0);
-    const type = H_YTD;
+    const type = HYTD;
 
-    expect(getNotation(date, type)).toBe(`${ H_YTD }_2020_2`);
+    expect(getNotation(date, type)).toBe(`${ HYTD }_2020_2`);
   });
 
   test(Q, () => {
@@ -218,18 +218,18 @@ describe('getNotation', () => {
     expect(getNotation(date, type)).toBe(`${ Q }_2020_4`);
   });
 
-  test(Q_RY, () => {
+  test(QRY, () => {
     const date = new Date(2021, 0, 0);
-    const type = Q_RY;
+    const type = QRY;
 
-    expect(getNotation(date, type)).toBe(`${ Q_RY }_2020_4`);
+    expect(getNotation(date, type)).toBe(`${ QRY }_2020_4`);
   });
 
-  test(Q_YTD, () => {
+  test(QYTD, () => {
     const date = new Date(2021, 0, 0);
-    const type = Q_YTD;
+    const type = QYTD;
 
-    expect(getNotation(date, type)).toBe(`${ Q_YTD }_2020_4`);
+    expect(getNotation(date, type)).toBe(`${ QYTD }_2020_4`);
   });
 
   test(BM, () => {
@@ -239,18 +239,18 @@ describe('getNotation', () => {
     expect(getNotation(date, type)).toBe(`${ BM }_2020_6`);
   });
 
-  test(BM_RY, () => {
+  test(BMRY, () => {
     const date = new Date(2021, 0, 0);
-    const type = BM_RY;
+    const type = BMRY;
 
-    expect(getNotation(date, type)).toBe(`${ BM_RY }_2020_6`);
+    expect(getNotation(date, type)).toBe(`${ BMRY }_2020_6`);
   });
 
-  test(BM_YTD, () => {
+  test(BMYTD, () => {
     const date = new Date(2021, 0, 0);
-    const type = BM_YTD;
+    const type = BMYTD;
 
-    expect(getNotation(date, type)).toBe(`${ BM_YTD }_2020_6`);
+    expect(getNotation(date, type)).toBe(`${ BMYTD }_2020_6`);
   });
 
   test(M, () => {
@@ -260,18 +260,18 @@ describe('getNotation', () => {
     expect(getNotation(date, type)).toBe(`${ M }_2020_12`);
   });
 
-  test(M_RY, () => {
+  test(MRY, () => {
     const date = new Date(2021, 0, 0);
-    const type = M_RY;
+    const type = MRY;
 
-    expect(getNotation(date, type)).toBe(`${ M_RY }_2020_12`);
+    expect(getNotation(date, type)).toBe(`${ MRY }_2020_12`);
   });
 
-  test(M_YTD, () => {
+  test(MYTD, () => {
     const date = new Date(2021, 0, 0);
-    const type = M_YTD;
+    const type = MYTD;
 
-    expect(getNotation(date, type)).toBe(`${ M_YTD }_2020_12`);
+    expect(getNotation(date, type)).toBe(`${ MYTD }_2020_12`);
   });
 
   test(W, () => {
@@ -281,11 +281,11 @@ describe('getNotation', () => {
     expect(getNotation(date, type)).toBe(`${ W }_2020_53`);
   });
 
-  test(W_YTD, () => {
+  test(WYTD, () => {
     const date = new Date(2021, 0, 0);
-    const type = W_YTD;
+    const type = WYTD;
 
-    expect(getNotation(date, type)).toBe(`${ W_YTD }_2020_53`);
+    expect(getNotation(date, type)).toBe(`${ WYTD }_2020_53`);
   });
 });
 
@@ -318,28 +318,28 @@ describe('getPeriod', () => {
     });
   });
 
-  test(H_RY, () => {
-    const notation = `${ H_RY }_2020_1`;
+  test(HRY, () => {
+    const notation = `${ HRY }_2020_1`;
 
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2019, 6, 1),
         to: new Date(2020, 6, 0)
       },
-      type: dictionary[H_RY],
+      type: dictionary[HRY],
       value: `2020 ${ H }1 ${ RY }`
     });
   });
 
-  test(H_YTD, () => {
-    const notation = `${ H_YTD }_2020_1`;
+  test(HYTD, () => {
+    const notation = `${ HYTD }_2020_1`;
 
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2020, 0, 1),
         to: new Date(2020, 6, 0)
       },
-      type: dictionary[H_YTD],
+      type: dictionary[HYTD],
       value: `2020 ${ H }1 ${ YTD }`
     });
   });
@@ -357,28 +357,28 @@ describe('getPeriod', () => {
     });
   });
 
-  test(Q_RY, () => {
-    const notation = `${ Q_RY }_2020_1`;
+  test(QRY, () => {
+    const notation = `${ QRY }_2020_1`;
 
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2019, 3, 1),
         to: new Date(2020, 3, 0)
       },
-      type: dictionary[Q_RY],
+      type: dictionary[QRY],
       value: `2020 ${ Q }1 ${ RY }`
     });
   });
 
-  test(Q_YTD, () => {
-    const notation = `${ Q_YTD }_2020_1`;
+  test(QYTD, () => {
+    const notation = `${ QYTD }_2020_1`;
 
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2020, 0, 1),
         to: new Date(2020, 3, 0)
       },
-      type: dictionary[Q_YTD],
+      type: dictionary[QYTD],
       value: `2020 ${ Q }1 ${ YTD }`
     });
   });
@@ -396,28 +396,28 @@ describe('getPeriod', () => {
     });
   });
 
-  test(BM_RY, () => {
-    const notation = `${ BM_RY }_2020_1`;
+  test(BMRY, () => {
+    const notation = `${ BMRY }_2020_1`;
 
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2019, 2, 1),
         to: new Date(2020, 2, 0)
       },
-      type: dictionary[BM_RY],
+      type: dictionary[BMRY],
       value: `2020.01/02 ${ RY }`
     });
   });
 
-  test(BM_YTD, () => {
-    const notation = `${ BM_YTD }_2020_1`;
+  test(BMYTD, () => {
+    const notation = `${ BMYTD }_2020_1`;
 
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2020, 0, 1),
         to: new Date(2020, 2, 0)
       },
-      type: dictionary[BM_YTD],
+      type: dictionary[BMYTD],
       value: `2020.01/02 ${ YTD }`
     });
   });
@@ -435,28 +435,28 @@ describe('getPeriod', () => {
     });
   });
 
-  test(M_RY, () => {
-    const notation = `${ M_RY }_2020_1`;
+  test(MRY, () => {
+    const notation = `${ MRY }_2020_1`;
 
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2019, 1, 1),
         to: new Date(2020, 1, 0)
       },
-      type: dictionary[M_RY],
+      type: dictionary[MRY],
       value: `2020.01 ${ RY }`
     });
   });
 
-  test(M_YTD, () => {
-    const notation = `${ M_YTD }_2020_1`;
+  test(MYTD, () => {
+    const notation = `${ MYTD }_2020_1`;
 
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2020, 0, 1),
         to: new Date(2020, 1, 0)
       },
-      type: dictionary[M_YTD],
+      type: dictionary[MYTD],
       value: `2020.01 ${ YTD }`
     });
   });
@@ -474,15 +474,15 @@ describe('getPeriod', () => {
     });
   });
 
-  test(W_YTD, () => {
-    const notation = `${ W_YTD }_2020_1`;
+  test(WYTD, () => {
+    const notation = `${ WYTD }_2020_1`;
 
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2020, 0, 1),
         to: new Date(2020, 0, 5)
       },
-      type: dictionary[W_YTD],
+      type: dictionary[WYTD],
       value: `2020 ${ W }01 ${ YTD }`
     });
   });
@@ -517,29 +517,29 @@ describe('getPeriods', () => {
     ]);
   });
 
-  test(H_RY, () => {
-    const notation = `${ H_RY }_2020_1`;
+  test(HRY, () => {
+    const notation = `${ HRY }_2020_1`;
     const range = 5;
 
     expect(getPeriods(notation, range)).toEqual([
-      getPeriod(`${ H_RY }_2020_1`),
-      getPeriod(`${ H_RY }_2020_2`),
-      getPeriod(`${ H_RY }_2021_1`),
-      getPeriod(`${ H_RY }_2021_2`),
-      getPeriod(`${ H_RY }_2022_1`)
+      getPeriod(`${ HRY }_2020_1`),
+      getPeriod(`${ HRY }_2020_2`),
+      getPeriod(`${ HRY }_2021_1`),
+      getPeriod(`${ HRY }_2021_2`),
+      getPeriod(`${ HRY }_2022_1`)
     ]);
   });
 
-  test(H_YTD, () => {
-    const notation = `${ H_YTD }_2020_1`;
+  test(HYTD, () => {
+    const notation = `${ HYTD }_2020_1`;
     const range = 5;
 
     expect(getPeriods(notation, range)).toEqual([
-      getPeriod(`${ H_YTD }_2020_1`),
-      getPeriod(`${ H_YTD }_2020_2`),
-      getPeriod(`${ H_YTD }_2021_1`),
-      getPeriod(`${ H_YTD }_2021_2`),
-      getPeriod(`${ H_YTD }_2022_1`)
+      getPeriod(`${ HYTD }_2020_1`),
+      getPeriod(`${ HYTD }_2020_2`),
+      getPeriod(`${ HYTD }_2021_1`),
+      getPeriod(`${ HYTD }_2021_2`),
+      getPeriod(`${ HYTD }_2022_1`)
     ]);
   });
 
@@ -556,29 +556,29 @@ describe('getPeriods', () => {
     ]);
   });
 
-  test(Q_RY, () => {
-    const notation = `${ Q_RY }_2020_1`;
+  test(QRY, () => {
+    const notation = `${ QRY }_2020_1`;
     const range = 5;
 
     expect(getPeriods(notation, range)).toEqual([
-      getPeriod(`${ Q_RY }_2020_1`),
-      getPeriod(`${ Q_RY }_2020_2`),
-      getPeriod(`${ Q_RY }_2020_3`),
-      getPeriod(`${ Q_RY }_2020_4`),
-      getPeriod(`${ Q_RY }_2021_1`)
+      getPeriod(`${ QRY }_2020_1`),
+      getPeriod(`${ QRY }_2020_2`),
+      getPeriod(`${ QRY }_2020_3`),
+      getPeriod(`${ QRY }_2020_4`),
+      getPeriod(`${ QRY }_2021_1`)
     ]);
   });
 
-  test(Q_YTD, () => {
-    const notation = `${ Q_YTD }_2020_1`;
+  test(QYTD, () => {
+    const notation = `${ QYTD }_2020_1`;
     const range = 5;
 
     expect(getPeriods(notation, range)).toEqual([
-      getPeriod(`${ Q_YTD }_2020_1`),
-      getPeriod(`${ Q_YTD }_2020_2`),
-      getPeriod(`${ Q_YTD }_2020_3`),
-      getPeriod(`${ Q_YTD }_2020_4`),
-      getPeriod(`${ Q_YTD }_2021_1`)
+      getPeriod(`${ QYTD }_2020_1`),
+      getPeriod(`${ QYTD }_2020_2`),
+      getPeriod(`${ QYTD }_2020_3`),
+      getPeriod(`${ QYTD }_2020_4`),
+      getPeriod(`${ QYTD }_2021_1`)
     ]);
   });
 
@@ -595,29 +595,29 @@ describe('getPeriods', () => {
     ]);
   });
 
-  test(BM_RY, () => {
-    const notation = `${ BM_RY }_2020_1`;
+  test(BMRY, () => {
+    const notation = `${ BMRY }_2020_1`;
     const range = 5;
 
     expect(getPeriods(notation, range)).toEqual([
-      getPeriod(`${ BM_RY }_2020_1`),
-      getPeriod(`${ BM_RY }_2020_2`),
-      getPeriod(`${ BM_RY }_2020_3`),
-      getPeriod(`${ BM_RY }_2020_4`),
-      getPeriod(`${ BM_RY }_2020_5`)
+      getPeriod(`${ BMRY }_2020_1`),
+      getPeriod(`${ BMRY }_2020_2`),
+      getPeriod(`${ BMRY }_2020_3`),
+      getPeriod(`${ BMRY }_2020_4`),
+      getPeriod(`${ BMRY }_2020_5`)
     ]);
   });
 
-  test(BM_YTD, () => {
-    const notation = `${ BM_YTD }_2020_1`;
+  test(BMYTD, () => {
+    const notation = `${ BMYTD }_2020_1`;
     const range = 5;
 
     expect(getPeriods(notation, range)).toEqual([
-      getPeriod(`${ BM_YTD }_2020_1`),
-      getPeriod(`${ BM_YTD }_2020_2`),
-      getPeriod(`${ BM_YTD }_2020_3`),
-      getPeriod(`${ BM_YTD }_2020_4`),
-      getPeriod(`${ BM_YTD }_2020_5`)
+      getPeriod(`${ BMYTD }_2020_1`),
+      getPeriod(`${ BMYTD }_2020_2`),
+      getPeriod(`${ BMYTD }_2020_3`),
+      getPeriod(`${ BMYTD }_2020_4`),
+      getPeriod(`${ BMYTD }_2020_5`)
     ]);
   });
 
@@ -634,29 +634,29 @@ describe('getPeriods', () => {
     ]);
   });
 
-  test(M_RY, () => {
-    const notation = `${ M_RY }_2020_1`;
+  test(MRY, () => {
+    const notation = `${ MRY }_2020_1`;
     const range = 5;
 
     expect(getPeriods(notation, range)).toEqual([
-      getPeriod(`${ M_RY }_2020_1`),
-      getPeriod(`${ M_RY }_2020_2`),
-      getPeriod(`${ M_RY }_2020_3`),
-      getPeriod(`${ M_RY }_2020_4`),
-      getPeriod(`${ M_RY }_2020_5`)
+      getPeriod(`${ MRY }_2020_1`),
+      getPeriod(`${ MRY }_2020_2`),
+      getPeriod(`${ MRY }_2020_3`),
+      getPeriod(`${ MRY }_2020_4`),
+      getPeriod(`${ MRY }_2020_5`)
     ]);
   });
 
-  test(M_YTD, () => {
-    const notation = `${ M_YTD }_2020_1`;
+  test(MYTD, () => {
+    const notation = `${ MYTD }_2020_1`;
     const range = 5;
 
     expect(getPeriods(notation, range)).toEqual([
-      getPeriod(`${ M_YTD }_2020_1`),
-      getPeriod(`${ M_YTD }_2020_2`),
-      getPeriod(`${ M_YTD }_2020_3`),
-      getPeriod(`${ M_YTD }_2020_4`),
-      getPeriod(`${ M_YTD }_2020_5`)
+      getPeriod(`${ MYTD }_2020_1`),
+      getPeriod(`${ MYTD }_2020_2`),
+      getPeriod(`${ MYTD }_2020_3`),
+      getPeriod(`${ MYTD }_2020_4`),
+      getPeriod(`${ MYTD }_2020_5`)
     ]);
   });
 
@@ -673,16 +673,16 @@ describe('getPeriods', () => {
     ]);
   });
 
-  test(W_YTD, () => {
-    const notation = `${ W_YTD }_2020_1`;
+  test(WYTD, () => {
+    const notation = `${ WYTD }_2020_1`;
     const range = 5;
 
     expect(getPeriods(notation, range)).toEqual([
-      getPeriod(`${ W_YTD }_2020_1`),
-      getPeriod(`${ W_YTD }_2020_2`),
-      getPeriod(`${ W_YTD }_2020_3`),
-      getPeriod(`${ W_YTD }_2020_4`),
-      getPeriod(`${ W_YTD }_2020_5`)
+      getPeriod(`${ WYTD }_2020_1`),
+      getPeriod(`${ WYTD }_2020_2`),
+      getPeriod(`${ WYTD }_2020_3`),
+      getPeriod(`${ WYTD }_2020_4`),
+      getPeriod(`${ WYTD }_2020_5`)
     ]);
   });
 });
@@ -702,16 +702,16 @@ describe('getType', () => {
     expect(getType(value)).toBe(H);
   });
 
-  test(H_RY, () => {
+  test(HRY, () => {
     const value = `2020 ${ H }1 ${ RY }`;
 
-    expect(getType(value)).toBe(H_RY);
+    expect(getType(value)).toBe(HRY);
   });
 
-  test(H_YTD, () => {
+  test(HYTD, () => {
     const value = `2020 ${ H }1 ${ YTD }`;
 
-    expect(getType(value)).toBe(H_YTD);
+    expect(getType(value)).toBe(HYTD);
   });
 
   test(Q, () => {
@@ -720,16 +720,16 @@ describe('getType', () => {
     expect(getType(value)).toBe(Q);
   });
 
-  test(Q_RY, () => {
+  test(QRY, () => {
     const value = `2020 ${ Q }1 ${ RY }`;
 
-    expect(getType(value)).toBe(Q_RY);
+    expect(getType(value)).toBe(QRY);
   });
 
-  test(Q_YTD, () => {
+  test(QYTD, () => {
     const value = `2020 ${ Q }1 ${ YTD }`;
 
-    expect(getType(value)).toBe(Q_YTD);
+    expect(getType(value)).toBe(QYTD);
   });
 
   test(BM, () => {
@@ -738,16 +738,16 @@ describe('getType', () => {
     expect(getType(value)).toBe(BM);
   });
 
-  test(BM_RY, () => {
+  test(BMRY, () => {
     const value = `2020.01/02 ${ RY }`;
 
-    expect(getType(value)).toBe(BM_RY);
+    expect(getType(value)).toBe(BMRY);
   });
 
-  test(BM_YTD, () => {
+  test(BMYTD, () => {
     const value = `2020.01/02 ${ YTD }`;
 
-    expect(getType(value)).toBe(BM_YTD);
+    expect(getType(value)).toBe(BMYTD);
   });
 
   test(M, () => {
@@ -756,16 +756,16 @@ describe('getType', () => {
     expect(getType(value)).toBe(M);
   });
 
-  test(M_RY, () => {
+  test(MRY, () => {
     const value = `2020.01 ${ RY }`;
 
-    expect(getType(value)).toBe(M_RY);
+    expect(getType(value)).toBe(MRY);
   });
 
-  test(M_YTD, () => {
+  test(MYTD, () => {
     const value = `2020.01 ${ YTD }`;
 
-    expect(getType(value)).toBe(M_YTD);
+    expect(getType(value)).toBe(MYTD);
   });
 
   test(W, () => {
@@ -774,10 +774,10 @@ describe('getType', () => {
     expect(getType(value)).toBe(W);
   });
 
-  test(W_YTD, () => {
+  test(WYTD, () => {
     const value = `2020 ${ W }01 ${ YTD }`;
 
-    expect(getType(value)).toBe(W_YTD);
+    expect(getType(value)).toBe(WYTD);
   });
 });
 
@@ -796,14 +796,14 @@ describe('types', () => {
     expect(typeof types[type]).toBe('string');
   });
 
-  test(H_RY, () => {
-    const type = H_RY;
+  test(HRY, () => {
+    const type = HRY;
 
     expect(typeof types[type]).toBe('string');
   });
 
-  test(H_YTD, () => {
-    const type = H_YTD;
+  test(HYTD, () => {
+    const type = HYTD;
 
     expect(typeof types[type]).toBe('string');
   });
@@ -814,14 +814,14 @@ describe('types', () => {
     expect(typeof types[type]).toBe('string');
   });
 
-  test(Q_RY, () => {
-    const type = Q_RY;
+  test(QRY, () => {
+    const type = QRY;
 
     expect(typeof types[type]).toBe('string');
   });
 
-  test(Q_YTD, () => {
-    const type = Q_YTD;
+  test(QYTD, () => {
+    const type = QYTD;
 
     expect(typeof types[type]).toBe('string');
   });
@@ -832,14 +832,14 @@ describe('types', () => {
     expect(typeof types[type]).toBe('string');
   });
 
-  test(BM_RY, () => {
-    const type = BM_RY;
+  test(BMRY, () => {
+    const type = BMRY;
 
     expect(typeof types[type]).toBe('string');
   });
 
-  test(BM_YTD, () => {
-    const type = BM_YTD;
+  test(BMYTD, () => {
+    const type = BMYTD;
 
     expect(typeof types[type]).toBe('string');
   });
@@ -850,14 +850,14 @@ describe('types', () => {
     expect(typeof types[type]).toBe('string');
   });
 
-  test(M_RY, () => {
-    const type = M_RY;
+  test(MRY, () => {
+    const type = MRY;
 
     expect(typeof types[type]).toBe('string');
   });
 
-  test(M_YTD, () => {
-    const type = M_YTD;
+  test(MYTD, () => {
+    const type = MYTD;
 
     expect(typeof types[type]).toBe('string');
   });
@@ -868,8 +868,8 @@ describe('types', () => {
     expect(typeof types[type]).toBe('string');
   });
 
-  test(W_YTD, () => {
-    const type = W_YTD;
+  test(WYTD, () => {
+    const type = WYTD;
 
     expect(typeof types[type]).toBe('string');
   });
