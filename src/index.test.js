@@ -2,29 +2,31 @@ import {dictionary, getNotation, getPeriod, getPeriods, getType, types} from '.'
 
 
 
-const Y = 'Y';
+const {
+  Y,
 
-const H = 'H';
-const HRY = 'HRY';
-const HYTD = 'HYTD';
+  H,
+  HRY,
+  HYTD,
 
-const Q = 'Q';
-const QRY = 'QRY';
-const QYTD = 'QYTD';
+  Q,
+  QRY,
+  QYTD,
 
-const BM = 'BM';
-const BMRY = 'BMRY';
-const BMYTD = 'BMYTD';
+  BM,
+  BMRY,
+  BMYTD,
 
-const M = 'M';
-const MRY = 'MRY';
-const MYTD = 'MYTD';
+  M,
+  MRY,
+  MYTD,
 
-const W = 'W';
-const WYTD = 'WYTD';
+  W,
+  WYTD,
 
-const RY = 'RY';
-const YTD = 'YTD';
+  RY = 'RY',
+  YTD = 'YTD'
+} = types;
 
 
 
