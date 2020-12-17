@@ -693,7 +693,7 @@ describe('getPeriods', () => {
 
 describe('getType', () => {
   test(Y, () => {
-    const value = `2020`;
+    const value = '2020';
 
     expect(getType(value)).toBe(Y);
   });
@@ -735,7 +735,7 @@ describe('getType', () => {
   });
 
   test(BM, () => {
-    const value = `2020.01/02`;
+    const value = '2020.01/02';
 
     expect(getType(value)).toBe(BM);
   });
@@ -753,7 +753,7 @@ describe('getType', () => {
   });
 
   test(M, () => {
-    const value = `2020.01`;
+    const value = '2020.01';
 
     expect(getType(value)).toBe(M);
   });
