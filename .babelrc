@@ -1,5 +1,12 @@
 {
   "comments": false,
+  "env": {
+    "development": {
+      "ignore": [
+        "**/*.test.js"
+      ]
+    }
+  },
   "plugins": [
     [
       "@babel/plugin-transform-runtime",
