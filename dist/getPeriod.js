@@ -9,8 +9,6 @@ exports.getPeriod = getPeriod;
 
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
-var _dictionary = require("./dictionary");
-
 var _getNotation = require("./getNotation");
 
 var _types = require("./types");
@@ -62,8 +60,8 @@ function getPeriod(notation) {
   }
 
   var result = {
-    date: {},
-    type: _dictionary.dictionary[type]
+    type: type,
+    date: {}
   };
 
   switch (type) {
