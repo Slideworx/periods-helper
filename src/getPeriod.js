@@ -10,7 +10,6 @@
 
 
 
-import {dictionary} from './dictionary';
 import {getNotation} from './getNotation';
 import {types} from './types';
 
@@ -82,8 +81,8 @@ export function getPeriod(notation) {
   }
 
   const result = {
-    date: {},
-    type: dictionary[type]
+    type,
+    date: {}
   };
 
   switch (type) {

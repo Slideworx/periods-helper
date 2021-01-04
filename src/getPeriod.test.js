@@ -39,7 +39,7 @@ describe(dictionary[Y].label, () => {
         from: new Date(2020, 0, 1),
         to: new Date(2021, 0, 0)
       },
-      type: dictionary[Y],
+      type: Y,
       value: '2020'
     });
   });
@@ -56,7 +56,7 @@ describe(dictionary[H].label, () => {
         from: new Date(2020, 0, 1),
         to: new Date(2020, 6, 0)
       },
-      type: dictionary[H],
+      type: H,
       value: `2020 ${ H }1`
     });
   });
@@ -69,7 +69,7 @@ describe(dictionary[H].label, () => {
         from: new Date(2019, 6, 1),
         to: new Date(2020, 6, 0)
       },
-      type: dictionary[HRY],
+      type: HRY,
       value: `2020 ${ H }1 ${ RY }`
     });
   });
@@ -82,7 +82,7 @@ describe(dictionary[H].label, () => {
         from: new Date(2020, 0, 1),
         to: new Date(2020, 6, 0)
       },
-      type: dictionary[HYTD],
+      type: HYTD,
       value: `2020 ${ H }1 ${ YTD }`
     });
   });
@@ -99,7 +99,7 @@ describe(dictionary[Q].label, () => {
         from: new Date(2020, 0, 1),
         to: new Date(2020, 3, 0)
       },
-      type: dictionary[Q],
+      type: Q,
       value: `2020 ${ Q }1`
     });
   });
@@ -112,7 +112,7 @@ describe(dictionary[Q].label, () => {
         from: new Date(2019, 3, 1),
         to: new Date(2020, 3, 0)
       },
-      type: dictionary[QRY],
+      type: QRY,
       value: `2020 ${ Q }1 ${ RY }`
     });
   });
@@ -125,7 +125,7 @@ describe(dictionary[Q].label, () => {
         from: new Date(2020, 0, 1),
         to: new Date(2020, 3, 0)
       },
-      type: dictionary[QYTD],
+      type: QYTD,
       value: `2020 ${ Q }1 ${ YTD }`
     });
   });
@@ -142,7 +142,7 @@ describe(dictionary[BM].label, () => {
         from: new Date(2020, 0, 1),
         to: new Date(2020, 2, 0)
       },
-      type: dictionary[BM],
+      type: BM,
       value: '2020.01/02'
     });
   });
@@ -155,7 +155,7 @@ describe(dictionary[BM].label, () => {
         from: new Date(2019, 2, 1),
         to: new Date(2020, 2, 0)
       },
-      type: dictionary[BMRY],
+      type: BMRY,
       value: `2020.01/02 ${ RY }`
     });
   });
@@ -168,7 +168,7 @@ describe(dictionary[BM].label, () => {
         from: new Date(2020, 0, 1),
         to: new Date(2020, 2, 0)
       },
-      type: dictionary[BMYTD],
+      type: BMYTD,
       value: `2020.01/02 ${ YTD }`
     });
   });
@@ -185,7 +185,7 @@ describe(dictionary[M].label, () => {
         from: new Date(2020, 0, 1),
         to: new Date(2020, 1, 0)
       },
-      type: dictionary[M],
+      type: M,
       value: '2020.01'
     });
   });
@@ -198,7 +198,7 @@ describe(dictionary[M].label, () => {
         from: new Date(2019, 1, 1),
         to: new Date(2020, 1, 0)
       },
-      type: dictionary[MRY],
+      type: MRY,
       value: `2020.01 ${ RY }`
     });
   });
@@ -211,7 +211,7 @@ describe(dictionary[M].label, () => {
         from: new Date(2020, 0, 1),
         to: new Date(2020, 1, 0)
       },
-      type: dictionary[MYTD],
+      type: MYTD,
       value: `2020.01 ${ YTD }`
     });
   });
@@ -228,7 +228,7 @@ describe(dictionary[W].label, () => {
         from: new Date(2020, 0, -1),
         to: new Date(2020, 0, 5)
       },
-      type: dictionary[W],
+      type: W,
       value: `2020 ${ W }01`
     });
   });
@@ -241,7 +241,7 @@ describe(dictionary[W].label, () => {
         from: new Date(2020, 0, 1),
         to: new Date(2020, 0, 5)
       },
-      type: dictionary[WYTD],
+      type: WYTD,
       value: `2020 ${ W }01 ${ YTD }`
     });
   });
