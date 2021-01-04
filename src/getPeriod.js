@@ -11,6 +11,7 @@
 
 
 import {dictionary} from './dictionary';
+import {getNotation} from './getNotation';
 import {types} from './types';
 
 
@@ -203,6 +204,15 @@ export function getPeriod(notation) {
       result.date.to = new Date(
         monday + (7 * number - 1) * 86400000
       );
+
+      [
+        type,
+        year,
+        number
+      ] = getNotation(result.date.to, type).split('_');
+
+      year = Number(year);
+      number = Number(number);
 
       result.value = `${ year } ${ W }${ addLeadingZero(number) }`;
 
