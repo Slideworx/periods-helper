@@ -11,6 +11,8 @@ var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/sli
 
 var _dictionary = require("./dictionary");
 
+var _getNotation = require("./getNotation");
+
 var _types = require("./types");
 
 var Y = _types.types.Y,
@@ -123,6 +125,16 @@ function getPeriod(notation) {
         var monday = getMonday(year);
         result.date.from = new Date(monday + 7 * (number - 1) * 86400000);
         result.date.to = new Date(monday + (7 * number - 1) * 86400000);
+
+        var _getNotation$split = (0, _getNotation.getNotation)(result.date.to, type).split('_');
+
+        var _getNotation$split2 = (0, _slicedToArray2.default)(_getNotation$split, 3);
+
+        type = _getNotation$split2[0];
+        year = _getNotation$split2[1];
+        number = _getNotation$split2[2];
+        year = Number(year);
+        number = Number(number);
         result.value = "".concat(year, " ").concat(W).concat(addLeadingZero(number));
         break;
       }
