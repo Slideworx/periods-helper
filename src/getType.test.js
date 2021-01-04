@@ -1,4 +1,4 @@
-import {getType, types} from '.';
+import {dictionary, getType, types} from '.';
 
 
 
@@ -30,13 +30,17 @@ const {
 
 
 
-describe('getType', () => {
+describe(dictionary[Y].label, () => {
   test(Y, () => {
     const value = '2020';
 
     expect(getType(value)).toBe(Y);
   });
+});
 
+
+
+describe(dictionary[H].label, () => {
   test(H, () => {
     const value = `2020 ${ H }1`;
 
@@ -54,7 +58,11 @@ describe('getType', () => {
 
     expect(getType(value)).toBe(HYTD);
   });
+});
 
+
+
+describe(dictionary[Q].label, () => {
   test(Q, () => {
     const value = `2020 ${ Q }1`;
 
@@ -72,7 +80,11 @@ describe('getType', () => {
 
     expect(getType(value)).toBe(QYTD);
   });
+});
 
+
+
+describe(dictionary[BM].label, () => {
   test(BM, () => {
     const value = '2020.01/02';
 
@@ -90,7 +102,11 @@ describe('getType', () => {
 
     expect(getType(value)).toBe(BMYTD);
   });
+});
 
+
+
+describe(dictionary[M].label, () => {
   test(M, () => {
     const value = '2020.01';
 
@@ -108,7 +124,11 @@ describe('getType', () => {
 
     expect(getType(value)).toBe(MYTD);
   });
+});
 
+
+
+describe(dictionary[W].label, () => {
   test(W, () => {
     const value = `2020 ${ W }01`;
 

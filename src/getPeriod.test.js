@@ -30,7 +30,7 @@ const {
 
 
 
-describe('getPeriod', () => {
+describe(dictionary[Y].label, () => {
   test(Y, () => {
     const notation = `${ Y }_2020`;
 
@@ -43,7 +43,11 @@ describe('getPeriod', () => {
       value: '2020'
     });
   });
+});
 
+
+
+describe(dictionary[H].label, () => {
   test(H, () => {
     const notation = `${ H }_2020_1`;
 
@@ -82,7 +86,11 @@ describe('getPeriod', () => {
       value: `2020 ${ H }1 ${ YTD }`
     });
   });
+});
 
+
+
+describe(dictionary[Q].label, () => {
   test(Q, () => {
     const notation = `${ Q }_2020_1`;
 
@@ -121,7 +129,11 @@ describe('getPeriod', () => {
       value: `2020 ${ Q }1 ${ YTD }`
     });
   });
+});
 
+
+
+describe(dictionary[BM].label, () => {
   test(BM, () => {
     const notation = `${ BM }_2020_1`;
 
@@ -160,7 +172,11 @@ describe('getPeriod', () => {
       value: `2020.01/02 ${ YTD }`
     });
   });
+});
 
+
+
+describe(dictionary[M].label, () => {
   test(M, () => {
     const notation = `${ M }_2020_1`;
 
@@ -199,7 +215,11 @@ describe('getPeriod', () => {
       value: `2020.01 ${ YTD }`
     });
   });
+});
 
+
+
+describe(dictionary[W].label, () => {
   test(W, () => {
     const notation = `${ W }_2020_1`;
 

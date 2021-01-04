@@ -1,4 +1,4 @@
-import {getNotation, types} from '.';
+import {dictionary, getNotation, types} from '.';
 
 
 
@@ -27,14 +27,18 @@ const {
 
 
 
-describe('getNotation', () => {
+describe(dictionary[Y].label, () => {
   test(Y, () => {
     const date = new Date(2021, 0, 0);
     const type = Y;
 
     expect(getNotation(date, type)).toBe(`${ Y }_2020`);
   });
+});
 
+
+
+describe(dictionary[H].label, () => {
   test(H, () => {
     const date = new Date(2021, 0, 0);
     const type = H;
@@ -55,7 +59,11 @@ describe('getNotation', () => {
 
     expect(getNotation(date, type)).toBe(`${ HYTD }_2020_2`);
   });
+});
 
+
+
+describe(dictionary[Q].label, () => {
   test(Q, () => {
     const date = new Date(2021, 0, 0);
     const type = Q;
@@ -76,7 +84,11 @@ describe('getNotation', () => {
 
     expect(getNotation(date, type)).toBe(`${ QYTD }_2020_4`);
   });
+});
 
+
+
+describe(dictionary[BM].label, () => {
   test(BM, () => {
     const date = new Date(2021, 0, 0);
     const type = BM;
@@ -97,7 +109,11 @@ describe('getNotation', () => {
 
     expect(getNotation(date, type)).toBe(`${ BMYTD }_2020_6`);
   });
+});
 
+
+
+describe(dictionary[M].label, () => {
   test(M, () => {
     const date = new Date(2021, 0, 0);
     const type = M;
@@ -118,7 +134,11 @@ describe('getNotation', () => {
 
     expect(getNotation(date, type)).toBe(`${ MYTD }_2020_12`);
   });
+});
 
+
+
+describe(dictionary[W].label, () => {
   test(W, () => {
     const date = new Date(2021, 0, 0);
     const type = W;

@@ -1,4 +1,4 @@
-import {getPeriod, getPeriods, types} from '.';
+import {dictionary, getPeriod, getPeriods, types} from '.';
 
 
 
@@ -27,7 +27,7 @@ const {
 
 
 
-describe('getPeriods', () => {
+describe(dictionary[Y].label, () => {
   test(Y, () => {
     const notation = `${ Y }_2020`;
     const range = 5;
@@ -40,7 +40,11 @@ describe('getPeriods', () => {
       getPeriod(`${ Y }_2024`)
     ]);
   });
+});
 
+
+
+describe(dictionary[H].label, () => {
   test(H, () => {
     const notation = `${ H }_2020_1`;
     const range = 5;
@@ -79,7 +83,11 @@ describe('getPeriods', () => {
       getPeriod(`${ HYTD }_2022_1`)
     ]);
   });
+});
 
+
+
+describe(dictionary[Q].label, () => {
   test(Q, () => {
     const notation = `${ Q }_2020_1`;
     const range = 5;
@@ -118,7 +126,11 @@ describe('getPeriods', () => {
       getPeriod(`${ QYTD }_2021_1`)
     ]);
   });
+});
 
+
+
+describe(dictionary[BM].label, () => {
   test(BM, () => {
     const notation = `${ BM }_2020_1`;
     const range = 5;
@@ -157,7 +169,11 @@ describe('getPeriods', () => {
       getPeriod(`${ BMYTD }_2020_5`)
     ]);
   });
+});
 
+
+
+describe(dictionary[M].label, () => {
   test(M, () => {
     const notation = `${ M }_2020_1`;
     const range = 5;
@@ -196,7 +212,11 @@ describe('getPeriods', () => {
       getPeriod(`${ MYTD }_2020_5`)
     ]);
   });
+});
 
+
+
+describe(dictionary[W].label, () => {
   test(W, () => {
     const notation = `${ W }_2020_1`;
     const range = 5;

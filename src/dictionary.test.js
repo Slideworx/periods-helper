@@ -27,7 +27,7 @@ const {
 
 
 
-describe('dictionary', () => {
+describe(dictionary[Y].label, () => {
   test(Y, () => {
     const type = Y;
 
@@ -37,7 +37,11 @@ describe('dictionary', () => {
         expect(typeof value).toBe('string');
       });
   });
+});
 
+
+
+describe(dictionary[H].label, () => {
   test(H, () => {
     const type = H;
 
@@ -67,7 +71,11 @@ describe('dictionary', () => {
         expect(typeof value).toBe('string');
       });
   });
+});
 
+
+
+describe(dictionary[Q].label, () => {
   test(Q, () => {
     const type = Q;
 
@@ -97,7 +105,11 @@ describe('dictionary', () => {
         expect(typeof value).toBe('string');
       });
   });
+});
 
+
+
+describe(dictionary[BM].label, () => {
   test(BM, () => {
     const type = BM;
 
@@ -127,7 +139,11 @@ describe('dictionary', () => {
         expect(typeof value).toBe('string');
       });
   });
+});
 
+
+
+describe(dictionary[M].label, () => {
   test(M, () => {
     const type = M;
 
@@ -157,7 +173,11 @@ describe('dictionary', () => {
         expect(typeof value).toBe('string');
       });
   });
+});
 
+
+
+describe(dictionary[W].label, () => {
   test(W, () => {
     const type = W;
 

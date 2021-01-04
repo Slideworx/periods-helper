@@ -1,4 +1,4 @@
-import {types} from '.';
+import {dictionary, types} from '.';
 
 
 
@@ -27,13 +27,17 @@ const {
 
 
 
-describe('types', () => {
+describe(dictionary[Y].label, () => {
   test(Y, () => {
     const type = Y;
 
     expect(typeof types[type]).toBe('string');
   });
+});
 
+
+
+describe(dictionary[H].label, () => {
   test(H, () => {
     const type = H;
 
@@ -51,7 +55,11 @@ describe('types', () => {
 
     expect(typeof types[type]).toBe('string');
   });
+});
 
+
+
+describe(dictionary[Q].label, () => {
   test(Q, () => {
     const type = Q;
 
@@ -69,7 +77,11 @@ describe('types', () => {
 
     expect(typeof types[type]).toBe('string');
   });
+});
 
+
+
+describe(dictionary[BM].label, () => {
   test(BM, () => {
     const type = BM;
 
@@ -87,7 +99,11 @@ describe('types', () => {
 
     expect(typeof types[type]).toBe('string');
   });
+});
 
+
+
+describe(dictionary[M].label, () => {
   test(M, () => {
     const type = M;
 
@@ -105,7 +121,11 @@ describe('types', () => {
 
     expect(typeof types[type]).toBe('string');
   });
+});
 
+
+
+describe(dictionary[W].label, () => {
   test(W, () => {
     const type = W;
 
