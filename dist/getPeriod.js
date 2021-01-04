@@ -57,7 +57,7 @@ function getPeriod(notation) {
   function handleOverflow(quantity) {
     if (number < 1 || number > quantity) {
       year = year + Math.ceil((number - quantity) / quantity);
-      number = Math.abs(number + quantity) % quantity || quantity;
+      number = (number % quantity + quantity) % quantity || quantity;
     }
   }
 
