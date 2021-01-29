@@ -70,6 +70,12 @@ function getNotation(date, type) {
     case WYTD:
       {
         var monday = getMonday(year);
+
+        if (date < monday) {
+          year = year - 1;
+          monday = getMonday(year);
+        }
+
         return "".concat(type, "_").concat(year, "_").concat(Math.ceil((date - monday) / 604800000));
       }
 

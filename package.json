@@ -1,6 +1,6 @@
 {
   "name": "@mtab/periods-helper",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "JavaScript library for parsing and formatting periods",
   "license": "MIT",
   "files": [
