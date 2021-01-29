@@ -10,7 +10,6 @@
 
 
 
-import {getNotation} from './getNotation';
 import {types} from './types';
 
 
@@ -194,7 +193,7 @@ export function getPeriod(notation) {
 
     case W:
     case WYTD: {
-      const monday = getMonday(year);
+      let monday = getMonday(year);
 
       result.date.from = new Date(
         monday + 7 * (number - 1) * 86400000
@@ -204,16 +203,13 @@ export function getPeriod(notation) {
         monday + (7 * number - 1) * 86400000
       );
 
-      [
-        type,
-        year,
-        number
-      ] = getNotation(result.date.to, type).split('_');
+      if (result.date.to < monday) {
+        year = year - 1;
 
-      year = Number(year);
-      number = Number(number);
+        monday = getMonday(year);
+      }
 
-      result.value = `${ year } ${ W }${ addLeadingZero(number) }`;
+      result.value = `${ year } ${ W }${ addLeadingZero(Math.ceil((result.date.to - monday) / 604800000)) }`;
 
       break;
     }
