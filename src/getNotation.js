@@ -45,8 +45,8 @@ function getMonday(year) {
  * @returns {string}
  */
 export function getNotation(date, type) {
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
 
   switch (type) {
     case Y: {
@@ -79,7 +79,13 @@ export function getNotation(date, type) {
 
     case W:
     case WYTD: {
-      const monday = getMonday(year);
+      let monday = getMonday(year);
+
+      if (date < monday) {
+        year = year - 1;
+
+        monday = getMonday(year);
+      }
 
       return `${ type }_${ year }_${ Math.ceil((date - monday) / 604800000) }`;
     }
