@@ -221,6 +221,14 @@ describe(dictionary[W].label, () => {
     const notation = `${ W }_2020_1`;
     const range = 5;
 
+    console.log([
+      getPeriod(`${W}_2020_1`),
+      getPeriod(`${W}_2020_2`),
+      getPeriod(`${W}_2020_3`),
+      getPeriod(`${W}_2020_4`),
+      getPeriod(`${W}_2020_5`)
+    ]);
+
     expect(getPeriods(notation, range)).toEqual([
       getPeriod(`${ W }_2020_1`),
       getPeriod(`${ W }_2020_2`),
@@ -228,6 +236,13 @@ describe(dictionary[W].label, () => {
       getPeriod(`${ W }_2020_4`),
       getPeriod(`${ W }_2020_5`)
     ]);
+  });
+
+  test.only(`${ W } - negative range`, () => {
+    const notation = `${ W }_2020_1`;
+    const range = -100;
+
+    console.log(getPeriods(notation, range));
   });
 
   test(WYTD, () => {

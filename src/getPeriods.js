@@ -103,5 +103,7 @@ export function getPeriods(notation, range) {
     }
   }
 
+  console.log(result)
+
   return result.map(getPeriod);
 }

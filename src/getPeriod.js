@@ -52,7 +52,17 @@ function getMonday(year) {
   return new Date(year, 0, day < 5 ? 2 - day : 9 - day).getTime();
 }
 
+function getISOWeeks(y) {
+  var d,
+    isLeap;
 
+  d = new Date(y, 0, 1);
+  isLeap = new Date(y, 1, 29).getMonth() === 1;
+
+  //check for a Jan 1 that's a Thursday or a leap year that has a 
+  //Wednesday jan 1. Otherwise it's 52
+  return d.getDay() === 4 || isLeap && d.getDay() === 3 ? 53 : 52
+}
 
 /**
  * @function getPeriod
@@ -209,7 +219,23 @@ export function getPeriod(notation) {
         monday = getMonday(year);
       }
 
-      result.value = `${ year } ${ W }${ addLeadingZero(Math.ceil((result.date.to - monday) / 604800000)) }`;
+      // liczba lat w roku
+      // jesli mniejsza od zera to obniżyć rok i wartość wejściową o liczbę tygodni w roku
+      console.log('number', number);
+      
+      if (number < 0) {
+        const noOfWeeksInYear = getISOWeeks(year);
+
+        console.log('number', number);
+        const newWeekNo = noOfWeeksInYear + number + 1;
+        console.log(`${W}_${year}_${newWeekNo}`)
+
+        result.value = getPeriod(`${ W }_${ year }_${ newWeekNo }`).value;
+      } else {
+        const weekNoValue = Math.ceil((result.date.to - monday) / 604800000);
+
+        result.value = `${ year } ${ W }${ addLeadingZero(weekNoValue) }`;
+      }
 
       break;
     }
