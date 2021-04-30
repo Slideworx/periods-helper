@@ -46,13 +46,17 @@ function addLeadingZero(number) {
   return number < 10 ? `0${ number }` : number;
 }
 
-function getMonday(year) {
-  const day = new Date(year, 0, 1).getDay() || 7;
+function getISOWeeks(y) {
+  var d,
+    isLeap;
 
-  return new Date(year, 0, day < 5 ? 2 - day : 9 - day).getTime();
+  d = new Date(y, 0, 1);
+  isLeap = new Date(y, 1, 29).getMonth() === 1;
+
+  //check for a Jan 1 that's a Thursday or a leap year that has a 
+  //Wednesday jan 1. Otherwise it's 52
+  return d.getDay() === 4 || isLeap && d.getDay() === 3 ? 53 : 52
 }
-
-
 
 /**
  * @function getPeriod
@@ -192,24 +196,35 @@ export function getPeriod(notation) {
     }
 
     case W:
-    case WYTD: {
-      let monday = getMonday(year);
+    case WYTD: {      
+      if (number < 0) {
+        const newYear = year - 1;
+        const noOfWeeksInYear = getISOWeeks(newYear);
+        const newWeekNo = noOfWeeksInYear + number + 1;
+        
+        const tempResult = getPeriod(`${W}_${newYear}_${newWeekNo}`);
 
-      result.date.from = new Date(
-        monday + 7 * (number - 1) * 86400000
-      );
+        result.date = tempResult.date;
+        result.value = tempResult.value;
+      } else {
+        const simple = new Date(year, 0, 1 + (number - 1) * 7);
+        const dow = simple.getDay();
+        const ISOweekStart = simple;
 
-      result.date.to = new Date(
-        monday + (7 * number - 1) * 86400000
-      );
+        if (dow <= 4) {
+          ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+        } else {
+          ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+        }
 
-      if (result.date.to < monday) {
-        year = year - 1;
+        const ISOweekEnd = new Date(ISOweekStart.getTime());
+        ISOweekEnd.setDate(ISOweekStart.getDate() + 7);
+        ISOweekEnd.setSeconds(ISOweekEnd.getSeconds() - 1);
 
-        monday = getMonday(year);
+        result.date.from = ISOweekStart;
+        result.date.to = ISOweekEnd;
+        result.value = `${ year } ${ W }${ addLeadingZero(number) }`;
       }
-
-      result.value = `${ year } ${ W }${ addLeadingZero(Math.ceil((result.date.to - monday) / 604800000)) }`;
 
       break;
     }

@@ -230,6 +230,17 @@ describe(dictionary[W].label, () => {
     ]);
   });
 
+  test(`${ W } - negative range`, () => {
+    const notation = `${ W }_2019_1`;
+    const range = -100;
+
+    const periods = getPeriods(notation, range);
+
+    expect(periods[0]).toEqual(getPeriod(`${ W }_2017_8`));
+    expect(periods[Math.abs(range) - 2]).toEqual(getPeriod(`${W}_2018_52`));
+    expect(periods[Math.abs(range) - 1]).toEqual(getPeriod(`${W}_2019_1`));    
+  });
+
   test(WYTD, () => {
     const notation = `${ WYTD }_2020_1`;
     const range = 5;

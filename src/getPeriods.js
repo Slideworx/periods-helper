@@ -92,7 +92,7 @@ export function getPeriods(notation, range) {
     case W:
     case WYTD: {
       for (let i = 0; i < quantity; i++) {
-        result[ascending ? 'push' : 'unshift'](`${ type }_${ year }_${ ascending ? number + i : number - i }`);
+        result[ascending ? 'push' : 'unshift'](`${ type }_${ year }_${ ascending ? number + i : ((number - i) || number - i - 1) }`);
       }
 
       break;
