@@ -2,7 +2,6 @@
   "name": "@mtab/periods-helper",
   "version": "1.4.8",
   "description": "JavaScript library for parsing and formatting periods",
-  "license": "MIT",
   "files": [
     "dist/"
   ],
@@ -10,6 +9,9 @@
   "scripts": {
     "build": "babel --out-dir dist/ src/",
     "test": "jest"
+  },
+  "publishConfig": {
+    "registry": "http://nexus.slideworx.com/repository/npm-internal/"
   },
   "devDependencies": {
     "@babel/cli": "7.13.16",

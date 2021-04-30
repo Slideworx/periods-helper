@@ -35,9 +35,11 @@ function addLeadingZero(number) {
   return number < 10 ? "0".concat(number) : number;
 }
 
-function getMonday(year) {
-  var day = new Date(year, 0, 1).getDay() || 7;
-  return new Date(year, 0, day < 5 ? 2 - day : 9 - day).getTime();
+function getISOWeeks(y) {
+  var d, isLeap;
+  d = new Date(y, 0, 1);
+  isLeap = new Date(y, 1, 29).getMonth() === 1;
+  return d.getDay() === 4 || isLeap && d.getDay() === 3 ? 53 : 52;
 }
 
 function getPeriod(notation) {
@@ -118,16 +120,32 @@ function getPeriod(notation) {
     case W:
     case WYTD:
       {
-        var monday = getMonday(year);
-        result.date.from = new Date(monday + 7 * (number - 1) * 86400000);
-        result.date.to = new Date(monday + (7 * number - 1) * 86400000);
+        if (number < 0) {
+          var newYear = year - 1;
+          var noOfWeeksInYear = getISOWeeks(newYear);
+          var newWeekNo = noOfWeeksInYear + number + 1;
+          var tempResult = getPeriod("".concat(W, "_").concat(newYear, "_").concat(newWeekNo));
+          result.date = tempResult.date;
+          result.value = tempResult.value;
+        } else {
+          var simple = new Date(year, 0, 1 + (number - 1) * 7);
+          var dow = simple.getDay();
+          var ISOweekStart = simple;
 
-        if (result.date.to < monday) {
-          year = year - 1;
-          monday = getMonday(year);
+          if (dow <= 4) {
+            ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+          } else {
+            ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+          }
+
+          var ISOweekEnd = new Date(ISOweekStart.getTime());
+          ISOweekEnd.setDate(ISOweekStart.getDate() + 7);
+          ISOweekEnd.setSeconds(ISOweekEnd.getSeconds() - 1);
+          result.date.from = ISOweekStart;
+          result.date.to = ISOweekEnd;
+          result.value = "".concat(year, " ").concat(W).concat(addLeadingZero(number));
         }
 
-        result.value = "".concat(year, " ").concat(W).concat(addLeadingZero(Math.ceil((result.date.to - monday) / 604800000)));
         break;
       }
 

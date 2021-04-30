@@ -68,7 +68,7 @@ function getPeriods(notation, range) {
     case WYTD:
       {
         for (var _i = 0; _i < quantity; _i++) {
-          result[ascending ? 'push' : 'unshift']("".concat(type, "_").concat(year, "_").concat(ascending ? number + _i : number - _i));
+          result[ascending ? 'push' : 'unshift']("".concat(type, "_").concat(year, "_").concat(ascending ? number + _i : number - _i || number - _i - 1));
         }
 
         break;
