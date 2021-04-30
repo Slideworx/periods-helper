@@ -46,12 +46,6 @@ function addLeadingZero(number) {
   return number < 10 ? `0${ number }` : number;
 }
 
-function getMonday(year) {
-  const day = new Date(year, 0, 1).getDay() || 7;
-
-  return new Date(year, 0, day < 5 ? 2 - day : 9 - day).getTime();
-}
-
 function getISOWeeks(y) {
   var d,
     isLeap;
@@ -202,39 +196,34 @@ export function getPeriod(notation) {
     }
 
     case W:
-    case WYTD: {
-      let monday = getMonday(year);
-
-      result.date.from = new Date(
-        monday + 7 * (number - 1) * 86400000
-      );
-
-      result.date.to = new Date(
-        monday + (7 * number - 1) * 86400000
-      );
-
-      if (result.date.to < monday) {
-        year = year - 1;
-
-        monday = getMonday(year);
-      }
-
-      // liczba lat w roku
-      // jesli mniejsza od zera to obniżyć rok i wartość wejściową o liczbę tygodni w roku
-      console.log('number', number);
-      
+    case WYTD: {      
       if (number < 0) {
-        const noOfWeeksInYear = getISOWeeks(year);
-
-        console.log('number', number);
+        const newYear = year - 1;
+        const noOfWeeksInYear = getISOWeeks(newYear);
         const newWeekNo = noOfWeeksInYear + number + 1;
-        console.log(`${W}_${year}_${newWeekNo}`)
+        
+        const tempResult = getPeriod(`${W}_${newYear}_${newWeekNo}`);
 
-        result.value = getPeriod(`${ W }_${ year }_${ newWeekNo }`).value;
+        result.date = tempResult.date;
+        result.value = tempResult.value;
       } else {
-        const weekNoValue = Math.ceil((result.date.to - monday) / 604800000);
+        const simple = new Date(year, 0, 1 + (number - 1) * 7);
+        const dow = simple.getDay();
+        const ISOweekStart = simple;
 
-        result.value = `${ year } ${ W }${ addLeadingZero(weekNoValue) }`;
+        if (dow <= 4) {
+          ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+        } else {
+          ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+        }
+
+        const ISOweekEnd = new Date(ISOweekStart.getTime());
+        ISOweekEnd.setDate(ISOweekStart.getDate() + 7);
+        ISOweekEnd.setSeconds(ISOweekEnd.getSeconds() - 1);
+
+        result.date.from = ISOweekStart;
+        result.date.to = ISOweekEnd;
+        result.value = `${ year } ${ W }${ addLeadingZero(number) }`;
       }
 
       break;

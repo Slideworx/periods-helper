@@ -219,16 +219,14 @@ describe(dictionary[M].label, () => {
 
 
 
-describe.only(dictionary[W].label, () => {
+describe(dictionary[W].label, () => {
   test(W, () => {
     const notation = `${ W }_2020_1`;
-
-    console.log(getPeriod(notation));
 
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2020, 0, -1),
-        to: new Date(2020, 0, 5)
+        to: new Date(2020, 0, 5, 23, 59, 59)
       },
       type: W,
       value: `2020 ${ W }01`
@@ -241,57 +239,38 @@ describe.only(dictionary[W].label, () => {
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2019, 0, 0),
-        to: new Date(2019, 0, 6) // should be => new Date(2019, 0, 7)
+        to: new Date(2019, 0, 6, 23, 59, 59)
       },
       type: W,
       value: `2019 ${W}01`
     });
   });
 
-  test.only(`${W} - negative week very small number`, () => {
+  test(`${W} - negative week very small number`, () => {
     const notation = `${W}_2020_-1`;
-
-    console.log(getPeriod(notation));
 
     expect(getPeriod(notation)).toEqual({
       date: {
-        from: new Date(2020, 11, 23),
-        to: new Date(2020, 11, 29) // should be => new Date(2020, 11, 30)
+        from: new Date(2019, 11, 23),
+        to: new Date(2019, 11, 29, 23, 59, 59)
       },
       type: W,
       value: `2019 ${W}52`
     });
   });
 
-  // test(`${ W } - negative week smaller than year`, () => {
-  //   const notation = `${W}_2019_-46`;
+  test(`${ W } - negative week bigger than year`, () => {
+    const notation = `${W}_2020_-100`;
 
-  //   console.log(getPeriod(notation));
-
-  //   expect(getPeriod(notation)).toEqual({
-  //     date: {
-  //       from: new Date(2018, 1, 4),
-  //       to: new Date(2018, 1, 10)
-  //     },
-  //     type: W,
-  //     value: `2018 ${W}06`
-  //   });
-  // });
-
-  // test(`${ W } - negative week bigger than year`, () => {
-  //   const notation = `${W}_2020_-98`;
-
-  //   console.log(getPeriod(notation));
-
-  //   expect(getPeriod(notation)).toEqual({
-  //     date: {
-  //       from: new Date(2018, 1, 4),
-  //       to: new Date(2018, 1, 10)
-  //     },
-  //     type: W,
-  //     value: `2018 ${W}06`
-  //   });
-  // });
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2018, 1, 5),
+        to: new Date(2018, 1, 11, 23, 59, 59)
+      },
+      type: W,
+      value: `2018 ${W}06`
+    });
+  });
 
   test(WYTD, () => {
     const notation = `${ WYTD }_2020_1`;
@@ -299,7 +278,7 @@ describe.only(dictionary[W].label, () => {
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2020, 0, 1),
-        to: new Date(2020, 0, 5)
+        to: new Date(2020, 0, 5, 23, 59, 59)
       },
       type: WYTD,
       value: `2020 ${ W }01 ${ YTD }`
