@@ -1,23 +1,22 @@
 {
   "name": "@mtab/periods-helper",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "description": "JavaScript library for parsing and formatting periods",
   "license": "MIT",
   "files": [
     "dist/"
   ],
   "main": "dist/index.js",
-  "repository": "Slideworx/periods-helper",
   "scripts": {
     "build": "babel --out-dir dist/ src/",
     "test": "jest"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12",
-    "@babel/core": "^7.12",
-    "@babel/plugin-transform-runtime": "^7.12",
-    "@babel/preset-env": "^7.12",
-    "@babel/runtime": "^7.12",
-    "jest": "^26.6"
+    "@babel/cli": "7.13.16",
+    "@babel/core": "7.13.16",
+    "@babel/plugin-transform-runtime": "7.13.15",
+    "@babel/preset-env": "7.13.15",
+    "@babel/runtime": "7.13.17",
+    "jest": "26.6.3"
   }
 }
