@@ -133,19 +133,46 @@ describe(dictionary[Q].label, () => {
 
 
 
-describe(dictionary[BM].label, () => {
+describe.only(dictionary[BM].label, () => {
   test(BM, () => {
     const notation = `${ BM }_2020_1`;
 
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2020, 0, 1),
-        to: new Date(2020, 2, 0)
+        to: new Date(2020, 2, 0, 23, 59, 59)
       },
       type: BM,
       value: '2020.01/02'
     });
   });
+
+  test(`${ BM } - negative bi-month very small number`, () => {
+    const notation = `${ BM }_2020_-1`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2019, 10, 1),
+        to: new Date(2020, 0, 0, 23, 59, 59)
+      },
+      type: BM,
+      value: '2019.11/12'
+    });
+  });
+
+  test(`${ BM } - negative month bigger than year`, () => {
+    const notation = `${BM}_2020_-8`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2018, 8, 1),
+        to: new Date(2018, 10, 0, 23, 59, 59)
+      },
+      type: BM,
+      value: '2018.09/10'
+    });
+  });
+
 
   test(BMRY, () => {
     const notation = `${ BMRY }_2020_1`;
@@ -153,7 +180,7 @@ describe(dictionary[BM].label, () => {
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2019, 2, 1),
-        to: new Date(2020, 2, 0)
+        to: new Date(2020, 2, 0, 23, 59, 59)
       },
       type: BMRY,
       value: `2020.01/02 ${ RY }`
@@ -166,7 +193,7 @@ describe(dictionary[BM].label, () => {
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2020, 0, 1),
-        to: new Date(2020, 2, 0)
+        to: new Date(2020, 2, 0, 23, 59, 59)
       },
       type: BMYTD,
       value: `2020.01/02 ${ YTD }`
@@ -183,10 +210,36 @@ describe(dictionary[M].label, () => {
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2020, 0, 1),
-        to: new Date(2020, 1, 0)
+        to: new Date(2020, 1, 0, 23, 59, 59)
       },
       type: M,
       value: '2020.01'
+    });
+  });
+
+  test(`${ M } - negative month very small number`, () => {
+    const notation = `${ M }_2020_-1`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2019, 11),
+        to: new Date(2020, 0, 0, 23, 59, 59)
+      },
+      type: M,
+      value: `2019.12`
+    });
+  });
+
+  test(`${M} - negative month bigger than year`, () => {
+    const notation = `${M}_2020_-20`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2018, 4),
+        to: new Date(2018, 5, 0, 23, 59, 59)
+      },
+      type: M,
+      value: `2018.05`
     });
   });
 
@@ -196,7 +249,7 @@ describe(dictionary[M].label, () => {
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2019, 1, 1),
-        to: new Date(2020, 1, 0)
+        to: new Date(2020, 1, 0, 23, 59, 59)
       },
       type: MRY,
       value: `2020.01 ${ RY }`
@@ -209,7 +262,7 @@ describe(dictionary[M].label, () => {
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2020, 0, 1),
-        to: new Date(2020, 1, 0)
+        to: new Date(2020, 1, 0, 23, 59, 59)
       },
       type: MYTD,
       value: `2020.01 ${ YTD }`

@@ -88,6 +88,8 @@ export function getPeriod(notation) {
     date: {}
   };
 
+  let newMonthFrom;
+
   switch (type) {
     case Y: {
       result.date.from = new Date(
@@ -154,21 +156,22 @@ export function getPeriod(notation) {
     case BM:
     case BMRY:
     case BMYTD: {
-      handleOverflow(6);
+      newMonthFrom = number > 0 ? 2 * (number - 1) : 2 * number;
 
       result.date.from = new Date(
         year,
-        2 * (number - 1),
+        newMonthFrom,
         1
       );
 
       result.date.to = new Date(
         year,
-        2 * number,
-        0
+        newMonthFrom + 2,
+        1
       );
+      result.date.to.setSeconds(result.date.to.getSeconds() - 1);
 
-      result.value = `${ year }.${ addLeadingZero(2 * number - 1) }/${ addLeadingZero(2 * number) }`;
+      result.value = `${ result.date.from.getFullYear() }.${ addLeadingZero(result.date.from.getMonth() + 1) }/${ addLeadingZero(result.date.to.getMonth() + 1) }`;
 
       break;
     }
@@ -176,21 +179,22 @@ export function getPeriod(notation) {
     case M:
     case MRY:
     case MYTD: {
-      handleOverflow(12);
+      newMonthFrom = number > 0 ? number - 1 : number;
 
       result.date.from = new Date(
         year,
-        number - 1,
+        newMonthFrom,
         1
       );
 
       result.date.to = new Date(
         year,
-        number,
-        0
+        newMonthFrom + 1,
+        1
       );
+      result.date.to.setSeconds(result.date.to.getSeconds() - 1);
 
-      result.value = `${ year }.${ addLeadingZero(number) }`;
+      result.value = `${ result.date.from.getFullYear() }.${ addLeadingZero(result.date.from.getMonth() + 1) }`;
 
       break;
     }
