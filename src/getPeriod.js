@@ -250,7 +250,6 @@ export function getPeriod(notation) {
 
       break;
     }
-
     case type.includes(YTD): {
       result.date.from = new Date(
         year,
@@ -259,6 +258,9 @@ export function getPeriod(notation) {
       );
 
       result.value = `${ result.value } ${ YTD }`;
+    }
+    case type.includes(WYTD): {
+      result.date.from = getPeriod(`W_${year}_1`).date.from;
 
       break;
     }

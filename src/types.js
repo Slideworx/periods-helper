@@ -3,9 +3,9 @@
  * @access public
  */
 export const types = {
-  Y: 'Y',
+  Y: 'Y', /* Year */
 
-  H: 'H',
+  H: 'H', 
   HRY: 'HRY',
   HYTD: 'HYTD',
 
@@ -17,10 +17,10 @@ export const types = {
   BMRY: 'BMRY',
   BMYTD: 'BMYTD',
 
-  M: 'M',
-  MRY: 'MRY',
-  MYTD: 'MYTD',
+  M: 'M', /* Month */
+  MRY: 'MRY', /* Rolling year (from months) */
+  MYTD: 'MYTD', /* Year-to-date (from months) */
 
-  W: 'W',
+  W: 'W', /* Week */
   WYTD: 'WYTD'
 };

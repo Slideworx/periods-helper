@@ -97,7 +97,7 @@ describe(dictionary[Q].label, () => {
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2020, 0, 1),
-        to: new Date(2020, 3, 0)
+        to: new Date(2020, 3, 0, 23, 59, 59)
       },
       type: Q,
       value: `2020 ${ Q }1`
@@ -133,7 +133,7 @@ describe(dictionary[Q].label, () => {
 
 
 
-describe.only(dictionary[BM].label, () => {
+describe(dictionary[BM].label, () => {
   test(BM, () => {
     const notation = `${ BM }_2020_1`;
 
@@ -230,7 +230,7 @@ describe(dictionary[M].label, () => {
     });
   });
 
-  test(`${M} - negative month bigger than year`, () => {
+  test(`${ M } - negative month bigger than year`, () => {
     const notation = `${M}_2020_-20`;
 
     expect(getPeriod(notation)).toEqual({
@@ -256,6 +256,32 @@ describe(dictionary[M].label, () => {
     });
   });
 
+  test(`${ MRY } - middle of year (*)`, () => {
+    const notation = `${MRY}_2019_9`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2018, 9, 1),
+        to: new Date(2019, 8, 30, 23, 59, 59)
+      },
+      type: MRY,
+      value: `2019.09 ${RY}`
+    });
+  });
+
+  test(`${ MRY } - end of year (*)`, () => {
+    const notation = `${MRY}_2019_12`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2019, 0, 1),
+        to: new Date(2019, 11, 31, 23, 59, 59)
+      },
+      type: MRY,
+      value: `2019.12 ${ RY }`
+    });
+  });
+
   test(MYTD, () => {
     const notation = `${ MYTD }_2020_1`;
 
@@ -268,8 +294,33 @@ describe(dictionary[M].label, () => {
       value: `2020.01 ${ YTD }`
     });
   });
-});
 
+  test(`${ MYTD } - middle of the year (*)`, () => {
+    const notation = `${ MYTD }_2019_2`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2019, 0, 1),
+        to: new Date(2019, 1, 28, 23, 59, 59)
+      },
+      type: MYTD,
+      value: `2019.02 ${ YTD }`
+    });
+  });
+
+  test(`${ MYTD } - middle of the year 2 (*)`, () => {
+    const notation = `${MYTD}_2019_8`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2019, 0, 1),
+        to: new Date(2019, 7, 31, 23, 59, 59)
+      },
+      type: MYTD,
+      value: `2019.08 ${YTD}`
+    });
+  });
+});
 
 
 describe(dictionary[W].label, () => {
@@ -325,16 +376,29 @@ describe(dictionary[W].label, () => {
     });
   });
 
-  test(WYTD, () => {
-    const notation = `${ WYTD }_2020_1`;
+  test(`${ WYTD } - beggining of the year (*)`, () => {
+    const notation = `${WYTD}_2020_10`;
 
     expect(getPeriod(notation)).toEqual({
       date: {
-        from: new Date(2020, 0, 1),
-        to: new Date(2020, 0, 5, 23, 59, 59)
+        from: new Date(2019, 11, 30),
+        to: new Date(2020, 2, 8, 23, 59, 59)
       },
       type: WYTD,
-      value: `2020 ${ W }01 ${ YTD }`
+      value: `2020 ${ W }10 ${ YTD }`
+    });
+  });
+
+  test(`${ WYTD } - end of the year (*)`, () => {
+    const notation = `${ WYTD }_2019_52`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2018, 11, 31),
+        to: new Date(2019, 11, 29, 23, 59, 59)
+      },
+      type: WYTD,
+      value: `2019 ${ W }52 ${YTD}`
     });
   });
 });
