@@ -116,7 +116,7 @@ export function getPeriod(notation) {
       );
       result.date.to.setSeconds(result.date.to.getSeconds() - 1);
 
-      result.value = `${ year } ${ H }${ number }`;
+      result.value = `${ result.date.from.getFullYear() } ${ H }${ Math.floor((result.date.from.getMonth() + 1) / 6) + 1 }`;
 
       break;
     }
@@ -139,7 +139,7 @@ export function getPeriod(notation) {
       );
       result.date.to.setSeconds(result.date.to.getSeconds() - 1);
 
-      result.value = `${ year } ${ Q }${ number }`;
+      result.value = `${ result.date.from.getFullYear() } ${ Q }${ Math.floor((result.date.from.getMonth() + 1)/ 3) + 1 }`;
 
       break;
     }
@@ -191,13 +191,25 @@ export function getPeriod(notation) {
     }
 
     case W:
-    case WYTD: {      
+    case WYTD: {
       if (number < 0) {
-        const newYear = year - 1;
-        const noOfWeeksInYear = getISOWeeks(newYear);
-        const newWeekNo = noOfWeeksInYear + number + 1;
-        
-        const tempResult = getPeriod(`${W}_${newYear}_${newWeekNo}`);
+        let nYear = year;
+        let nNumber = number;
+        let currentNYearWeeks;
+
+        while (true) {
+          nYear--;
+          currentNYearWeeks = getISOWeeks(nYear);
+
+          if (Math.abs(nNumber) > currentNYearWeeks) {
+            nNumber += currentNYearWeeks;
+          } else {
+            nNumber = currentNYearWeeks + nNumber + 1;
+            break;
+          }
+        }
+
+        const tempResult = getPeriod(`${W}_${nYear}_${nNumber}`);
 
         result.date = tempResult.date;
         result.value = tempResult.value;
@@ -218,7 +230,7 @@ export function getPeriod(notation) {
 
         result.date.from = ISOweekStart;
         result.date.to = ISOweekEnd;
-        result.value = `${ year } ${ W }${ addLeadingZero(number) }`;
+        result.value = `${year} ${W}${addLeadingZero(number)}`;
       }
 
       break;
@@ -231,15 +243,15 @@ export function getPeriod(notation) {
 
   if (type.includes(RY)) {
     result.date.from = new Date(
-      year - 1,
-      result.date.to.getMonth() + 1,
+      result.date.to.getFullYear(),
+      result.date.to.getMonth() + 1 - 12,
       1
     );
 
     result.value = `${result.value} ${RY}`;
   } else if (type.includes(YTD)) {
     result.date.from = new Date(
-      year,
+      result.date.from.getFullYear(),
       0,
       1
     );

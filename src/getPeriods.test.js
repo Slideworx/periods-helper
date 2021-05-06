@@ -1,4 +1,4 @@
-import {dictionary, getPeriod, getPeriods, types} from '.';
+import {dictionary, getPeriod, getPeriods, getNotation, types} from '.';
 
 
 
@@ -58,10 +58,25 @@ describe(dictionary[H].label, () => {
     ]);
   });
 
+  test(`${ H }, next year (with getNotation), range = -20`, () => {
+    const range = -20;
+
+    const date = new Date();
+    date.setFullYear(date.getFullYear() + 1);
+    
+    const notation = getNotation(date, H);  
+    const periods = getPeriods(notation, range);
+
+    expect(periods[0]).toEqual(getPeriod(`${ H }_${ date.getFullYear() - 10 }_2`));
+    expect(periods[Math.abs(range) - 3]).toEqual(getPeriod(`${ H }_${ date.getFullYear() - 1 }_1`));
+    expect(periods[Math.abs(range) - 2]).toEqual(getPeriod(`${ H }_${ date.getFullYear() - 1 }_2`));
+    expect(periods[Math.abs(range) - 1]).toEqual(getPeriod(`${ H }_${ date.getFullYear() }_1`));
+  });
+
   test(HRY, () => {
     const notation = `${ HRY }_2020_1`;
     const range = 5;
-
+ 
     expect(getPeriods(notation, range)).toEqual([
       getPeriod(`${ HRY }_2020_1`),
       getPeriod(`${ HRY }_2020_2`),
@@ -230,15 +245,28 @@ describe(dictionary[W].label, () => {
     ]);
   });
 
-  test(`${ W } - negative range`, () => {
+  test(`${ W } - small negative range`, () => {
     const notation = `${ W }_2019_1`;
-    const range = -100;
+    const range = -5;
 
     const periods = getPeriods(notation, range);
 
-    expect(periods[0]).toEqual(getPeriod(`${ W }_2017_8`));
+    expect(periods.length).toEqual(Math.abs(range));
+    expect(periods[0]).toEqual(getPeriod(`${W}_2018_49`));
     expect(periods[Math.abs(range) - 2]).toEqual(getPeriod(`${W}_2018_52`));
     expect(periods[Math.abs(range) - 1]).toEqual(getPeriod(`${W}_2019_1`));    
+  });
+
+  test(`${W} - bigger than year negative range`, () => {
+    const notation = `${W}_2019_1`;
+    const range = -60;
+
+    const periods = getPeriods(notation, range);
+
+    expect(periods.length).toEqual(Math.abs(range));
+    expect(periods[0]).toEqual(getPeriod(`${W}_2017_46`));
+    expect(periods[Math.abs(range) - 2]).toEqual(getPeriod(`${W}_2018_52`));
+    expect(periods[Math.abs(range) - 1]).toEqual(getPeriod(`${W}_2019_1`));
   });
 
   test(WYTD, () => {

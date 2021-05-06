@@ -87,6 +87,31 @@ describe(dictionary[H].label, () => {
     });
   });
 
+  test(`${ H } - small negative half year`, () => {
+    const notation = `${H}_2022_-1`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2021, 6, 1),
+        to: new Date(2021, 11, 31, 23, 59, 59)
+      },
+      type: H,
+      value: `2021 ${ H }2`
+    });
+  });
+
+  test(`${ H } - bigger than year negative half year`, () => {
+    const notation = `${H}_2022_-4`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2020, 0, 1),
+        to: new Date(2020, 5, 30, 23, 59, 59)
+      },
+      type: H,
+      value: `2020 ${ H }1`
+    });
+  });
 
   test(`${ HRY } (*)`, () => {
     const notation = `${ HRY }_2019_1`;
@@ -112,6 +137,12 @@ describe(dictionary[H].label, () => {
       type: HRY,
       value: `2019 ${ H }2 ${ RY }`
     });
+  });
+
+  test(`${ HRY } - bigger than 2 `, () => {
+    const notation = `${ HRY }_2019_3`;
+
+    expect(getPeriod(notation)).toEqual(getPeriod(`${ HRY }_2020_1`));
   });
 
   test(`${ HYTD } (*)`, () => {
@@ -168,6 +199,12 @@ describe(dictionary[Q].label, () => {
       type: Q,
       value: `2018 ${ Q }3`
     });
+  });
+
+  test(`${ Q } - more than year`, () => {
+    const notation = `${ Q }_2018_6`;
+
+    expect(getPeriod(notation)).toEqual(getPeriod(`${ Q }_2019_2`));
   });
 
   test(QRY, () => {
@@ -507,6 +544,19 @@ describe(dictionary[W].label, () => {
     });
   });
 
+  test(`${ W } - 3`, () => {
+    const notation = `${ W }_2017_46`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2017, 10, 13),
+        to: new Date(2017, 10, 19, 23, 59, 59)
+      },
+      type: W,
+      value: `2017 ${ W }46`
+    });
+  });
+
   test(`${W} - negative week very small number`, () => {
     const notation = `${W}_2020_-1`;
 
@@ -525,11 +575,37 @@ describe(dictionary[W].label, () => {
 
     expect(getPeriod(notation)).toEqual({
       date: {
-        from: new Date(2018, 1, 5),
-        to: new Date(2018, 1, 11, 23, 59, 59)
+        from: new Date(2018, 0, 29),
+        to: new Date(2018, 1, 4, 23, 59, 59)
       },
       type: W,
-      value: `2018 ${W}06`
+      value: `2018 ${ W }05`
+    });
+  });
+
+  test(`${W} - negative week bigger than year 2`, () => {
+    const notation = `${ W }_2019_-53`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2017, 11, 25),
+        to: new Date(2017, 11, 31, 23, 59, 59)
+      },
+      type: W,
+      value: `2017 ${ W }52`
+    });
+  });
+
+  test(`${W} - negative week bigger than year 3`, () => {
+    const notation = `${W}_2019_-59`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2017, 10, 13),
+        to: new Date(2017, 10, 19, 23, 59, 59)
+      },
+      type: W,
+      value: `2017 ${ W }46`
     });
   });
 
