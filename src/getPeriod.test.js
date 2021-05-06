@@ -187,6 +187,32 @@ describe(dictionary[BM].label, () => {
     });
   });
 
+  test(`${ BMRY } - beggining of the year (*)`, () => {
+    const notation = `${ BMRY }_2019_1`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2018, 2, 1),
+        to: new Date(2019, 1, 28, 23, 59, 59)
+      },
+      type: BMRY,
+      value: `2019.01/02 ${ RY }`
+    });
+  });
+
+  test(`${ BMRY } - middle of the year (*)`, () => {
+    const notation = `${ BMRY }_2019_4`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2018, 8, 1),
+        to: new Date(2019, 7, 31, 23, 59, 59)
+      },
+      type: BMRY,
+      value: `2019.07/08 ${RY}`
+    });
+  });
+
   test(BMYTD, () => {
     const notation = `${ BMYTD }_2020_1`;
 
@@ -197,6 +223,32 @@ describe(dictionary[BM].label, () => {
       },
       type: BMYTD,
       value: `2020.01/02 ${ YTD }`
+    });
+  });
+
+  test(`${ BMYTD } - beginning of the year (*)`, () => {
+    const notation = `${BMYTD}_2019_2`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2019, 0, 1),
+        to: new Date(2019, 3, 30, 23, 59, 59)
+      },
+      type: BMYTD,
+      value: `2019.03/04 ${ YTD }`
+    });
+  });
+
+  test(`${ BMYTD } - middle of the year (*)`, () => {
+    const notation = `${ BMYTD }_2019_4`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2019, 0, 1),
+        to: new Date(2019, 7, 31, 23, 59, 59)
+      },
+      type: BMYTD,
+      value: `2019.07/08 ${ YTD }`
     });
   });
 });

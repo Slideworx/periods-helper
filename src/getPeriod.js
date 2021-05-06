@@ -238,31 +238,25 @@ export function getPeriod(notation) {
     }
   }
 
-  switch (true) {
-    case type.includes(RY): {
-      result.date.from = new Date(
-        year - 1,
-        result.date.to.getMonth() + 1,
-        1
-      );
+  if (type.includes(RY)) {
+    result.date.from = new Date(
+      year - 1,
+      result.date.to.getMonth() + 1,
+      1
+    );
 
-      result.value = `${ result.value } ${ RY }`;
+    result.value = `${result.value} ${RY}`;
+  } else if (type.includes(YTD)) {
+    result.date.from = new Date(
+      year,
+      0,
+      1
+    );
 
-      break;
-    }
-    case type.includes(YTD): {
-      result.date.from = new Date(
-        year,
-        0,
-        1
-      );
+    result.value = `${result.value} ${YTD}`;
 
-      result.value = `${ result.value } ${ YTD }`;
-    }
-    case type.includes(WYTD): {
+    if (type.includes(WYTD)) {
       result.date.from = getPeriod(`W_${year}_1`).date.from;
-
-      break;
     }
   }
 
