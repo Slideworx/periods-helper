@@ -40,9 +40,20 @@ describe(dictionary[Y].label, () => {
       getPeriod(`${ Y }_2024`)
     ]);
   });
+
+  test(`${ Y } - negative range`, () => {
+    const notation = `${Y}_2020`;
+    const range = -5;
+
+    expect(getPeriods(notation, range)).toEqual([
+      getPeriod(`${Y}_2016`),
+      getPeriod(`${Y}_2017`),
+      getPeriod(`${Y}_2018`),
+      getPeriod(`${Y}_2019`),
+      getPeriod(`${Y}_2020`)
+    ]);
+  });
 });
-
-
 
 describe(dictionary[H].label, () => {
   test(H, () => {
@@ -113,6 +124,21 @@ describe(dictionary[Q].label, () => {
       getPeriod(`${ Q }_2020_3`),
       getPeriod(`${ Q }_2020_4`),
       getPeriod(`${ Q }_2021_1`)
+    ]);
+  });
+
+  test(`${ Q } - negative range`, () => {
+    const notation = `${Q}_2020_1`;
+    const range = -7;
+
+    expect(getPeriods(notation, range)).toEqual([
+      getPeriod(`${Q}_2018_3`),
+      getPeriod(`${Q}_2018_4`),
+      getPeriod(`${Q}_2019_1`),
+      getPeriod(`${Q}_2019_2`),
+      getPeriod(`${Q}_2019_3`),
+      getPeriod(`${Q}_2019_4`),
+      getPeriod(`${Q}_2020_1`)
     ]);
   });
 
