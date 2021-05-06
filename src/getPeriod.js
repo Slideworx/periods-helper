@@ -47,14 +47,9 @@ function addLeadingZero(number) {
 }
 
 function getISOWeeks(y) {
-  var d,
-    isLeap;
+  const d = new Date(y, 0, 1);
+  const isLeap = new Date(y, 1, 29).getMonth() === 1;
 
-  d = new Date(y, 0, 1);
-  isLeap = new Date(y, 1, 29).getMonth() === 1;
-
-  //check for a Jan 1 that's a Thursday or a leap year that has a 
-  //Wednesday jan 1. Otherwise it's 52
   return d.getDay() === 4 || isLeap && d.getDay() === 3 ? 53 : 52
 }
 
@@ -76,13 +71,6 @@ export function getPeriod(notation) {
   year = Number(year);
   number = Number(number);
 
-  function handleOverflow(quantity) {
-    if (number < 1 || number > quantity) {
-      year = year + Math.ceil((number - quantity) / quantity);
-      number = (number % quantity + quantity) % quantity || quantity;
-    }
-  }
-
   const result = {
     type,
     date: {}
@@ -101,8 +89,9 @@ export function getPeriod(notation) {
       result.date.to = new Date(
         year + 1,
         0,
-        0
+        1
       );
+      result.date.to.setSeconds(result.date.to.getSeconds() - 1);
 
       result.value = `${ year }`;
 

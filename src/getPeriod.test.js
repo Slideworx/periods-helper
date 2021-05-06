@@ -31,23 +31,36 @@ const {
 
 
 describe(dictionary[Y].label, () => {
-  test(Y, () => {
-    const notation = `${ Y }_2020`;
+  test(`${ Y } (*)`, () => {
+    const notation = `${ Y }_2018`;
 
     expect(getPeriod(notation)).toEqual({
       date: {
-        from: new Date(2020, 0, 1),
-        to: new Date(2021, 0, 0)
+        from: new Date(2018, 0, 1),
+        to: new Date(2018, 11, 31, 23, 59, 59)
       },
       type: Y,
-      value: '2020'
+      value: '2018'
+    });
+  });
+
+  test(`${ Y } - 2 (*)`, () => {
+    const notation = `${Y}_2019`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2019, 0, 1),
+        to: new Date(2019, 11, 31, 23, 59, 59)
+      },
+      type: Y,
+      value: '2019'
     });
   });
 });
 
 
 
-describe.only(dictionary[H].label, () => {
+describe(dictionary[H].label, () => {
   test(`${ H } (*)`, () => {
     const notation = `${ H }_2018_1`;
 
@@ -88,7 +101,7 @@ describe.only(dictionary[H].label, () => {
     });
   });
 
-  test.only(`${ HRY } - 2 (*)`, () => {
+  test(`${ HRY } - 2 (*)`, () => {
     const notation = `${HRY}_2019_2`;
 
     expect(getPeriod(notation)).toEqual({
