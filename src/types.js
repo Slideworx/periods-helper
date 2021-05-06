@@ -5,9 +5,9 @@
 export const types = {
   Y: 'Y', /* Year */
 
-  H: 'H', 
-  HRY: 'HRY',
-  HYTD: 'HYTD', /*  */
+  H: 'H', /* Half-year */
+  HRY: 'HRY', /* Rolling year (from half-years) */
+  HYTD: 'HYTD', /* Year-to-date (from half-years)  */
 
   Q: 'Q', /* Quarter */
   QRY: 'QRY', /* Rolling year (from quarters) */

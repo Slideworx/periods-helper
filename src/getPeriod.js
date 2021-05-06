@@ -112,19 +112,20 @@ export function getPeriod(notation) {
     case H:
     case HRY:
     case HYTD: {
-      handleOverflow(2);
+      newMonthFrom = number > 0 ? 6 * (number - 1) : 6 * number;
 
       result.date.from = new Date(
         year,
-        6 * (number - 1),
+        newMonthFrom,
         1
       );
 
       result.date.to = new Date(
         year,
-        6 * number,
-        0
+        newMonthFrom + 6,
+        1
       );
+      result.date.to.setSeconds(result.date.to.getSeconds() - 1);
 
       result.value = `${ year } ${ H }${ number }`;
 

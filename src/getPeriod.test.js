@@ -47,43 +47,83 @@ describe(dictionary[Y].label, () => {
 
 
 
-describe(dictionary[H].label, () => {
-  test(H, () => {
-    const notation = `${ H }_2020_1`;
+describe.only(dictionary[H].label, () => {
+  test(`${ H } (*)`, () => {
+    const notation = `${ H }_2018_1`;
 
     expect(getPeriod(notation)).toEqual({
       date: {
-        from: new Date(2020, 0, 1),
-        to: new Date(2020, 6, 0)
+        from: new Date(2018, 0, 1),
+        to: new Date(2018, 5, 30, 23, 59, 59)
       },
       type: H,
-      value: `2020 ${ H }1`
+      value: `2018 ${ H }1`
     });
   });
 
-  test(HRY, () => {
-    const notation = `${ HRY }_2020_1`;
+  test(`${ H } - 2 (*)`, () => {
+    const notation = `${H}_2018_2`;
 
     expect(getPeriod(notation)).toEqual({
       date: {
-        from: new Date(2019, 6, 1),
-        to: new Date(2020, 6, 0)
+        from: new Date(2018, 6, 1),
+        to: new Date(2018, 11, 31, 23, 59, 59)
+      },
+      type: H,
+      value: `2018 ${ H }2`
+    });
+  });
+
+
+  test(`${ HRY } (*)`, () => {
+    const notation = `${ HRY }_2019_1`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2018, 6, 1),
+        to: new Date(2019, 5, 30, 23, 59, 59)
       },
       type: HRY,
-      value: `2020 ${ H }1 ${ RY }`
+      value: `2019 ${ H }1 ${ RY }`
     });
   });
 
-  test(HYTD, () => {
-    const notation = `${ HYTD }_2020_1`;
+  test.only(`${ HRY } - 2 (*)`, () => {
+    const notation = `${HRY}_2019_2`;
 
     expect(getPeriod(notation)).toEqual({
       date: {
-        from: new Date(2020, 0, 1),
-        to: new Date(2020, 6, 0)
+        from: new Date(2019, 0, 1),
+        to: new Date(2019, 11, 31, 23, 59, 59)
+      },
+      type: HRY,
+      value: `2019 ${ H }2 ${ RY }`
+    });
+  });
+
+  test(`${ HYTD } (*)`, () => {
+    const notation = `${ HYTD }_2019_1`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2019, 0, 1),
+        to: new Date(2019, 5, 30, 23, 59, 59)
       },
       type: HYTD,
-      value: `2020 ${ H }1 ${ YTD }`
+      value: `2019 ${ H }1 ${ YTD }`
+    });
+  });
+
+  test(`${ HYTD } - 2 (*)`, () => {
+    const notation = `${HYTD}_2019_2`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2019, 0, 1),
+        to: new Date(2019, 11, 31, 23, 59, 59)
+      },
+      type: HYTD,
+      value: `2019 ${ H }2 ${ YTD }`
     });
   });
 });
