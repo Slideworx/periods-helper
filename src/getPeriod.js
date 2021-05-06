@@ -134,19 +134,20 @@ export function getPeriod(notation) {
     case Q:
     case QRY:
     case QYTD: {
-      handleOverflow(4);
+      newMonthFrom = number > 0 ? 3 * (number - 1) : 3 * number;
 
       result.date.from = new Date(
         year,
-        3 * (number - 1),
+        newMonthFrom,
         1
       );
 
       result.date.to = new Date(
         year,
-        3 * number,
-        0
+        newMonthFrom + 3,
+        1
       );
+      result.date.to.setSeconds(result.date.to.getSeconds() - 1);
 
       result.value = `${ year } ${ Q }${ number }`;
 

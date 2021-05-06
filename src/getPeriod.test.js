@@ -91,16 +91,29 @@ describe(dictionary[H].label, () => {
 
 
 describe(dictionary[Q].label, () => {
-  test(Q, () => {
-    const notation = `${ Q }_2020_1`;
+  test(`${ Q } (*)`, () => {
+    const notation = `${ Q }_2018_2`;
 
     expect(getPeriod(notation)).toEqual({
       date: {
-        from: new Date(2020, 0, 1),
-        to: new Date(2020, 3, 0, 23, 59, 59)
+        from: new Date(2018, 3, 1),
+        to: new Date(2018, 5, 30, 23, 59, 59)
       },
       type: Q,
-      value: `2020 ${ Q }1`
+      value: `2018 ${ Q }2`
+    });
+  });
+
+  test(`${ Q } - 2 (*)`, () => {
+    const notation = `${Q}_2018_3`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2018, 6, 1),
+        to: new Date(2018, 8, 30, 23, 59, 59)
+      },
+      type: Q,
+      value: `2018 ${ Q }3`
     });
   });
 
@@ -110,23 +123,62 @@ describe(dictionary[Q].label, () => {
     expect(getPeriod(notation)).toEqual({
       date: {
         from: new Date(2019, 3, 1),
-        to: new Date(2020, 3, 0)
+        to: new Date(2020, 3, 0, 23, 59, 59)
       },
       type: QRY,
       value: `2020 ${ Q }1 ${ RY }`
     });
   });
 
-  test(QYTD, () => {
-    const notation = `${ QYTD }_2020_1`;
+  test(`${ QRY } - middle of year (*)`, () => {
+    const notation = `${QRY}_2019_2`;
 
     expect(getPeriod(notation)).toEqual({
       date: {
-        from: new Date(2020, 0, 1),
-        to: new Date(2020, 3, 0)
+        from: new Date(2018, 6, 1),
+        to: new Date(2019, 5, 30, 23, 59, 59)
+      },
+      type: QRY,
+      value: `2019 ${ Q }2 ${ RY }`
+    });
+  });
+
+  test(`${ QRY } - middle of year 2 (*)`, () => {
+    const notation = `${QRY}_2019_3`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2018, 9, 1),
+        to: new Date(2019, 8, 30, 23, 59, 59)
+      },
+      type: QRY,
+      value: `2019 ${ Q }3 ${ RY }`
+    });
+  });
+
+  test(`${ QYTD } - beginning of the year (*)`, () => {
+    const notation = `${QYTD}_2019_1`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2019, 0, 1),
+        to: new Date(2019, 2, 31, 23, 59, 59)
       },
       type: QYTD,
-      value: `2020 ${ Q }1 ${ YTD }`
+      value: `2019 ${ Q }1 ${ YTD }`
+    });
+  });
+
+  test(`${ QYTD } - middle of the year (*)`, () => {
+    const notation = `${QYTD}_2019_3`;
+
+    expect(getPeriod(notation)).toEqual({
+      date: {
+        from: new Date(2019, 0, 1),
+        to: new Date(2019, 8, 30, 23, 59, 59)
+      },
+      type: QYTD,
+      value: `2019 ${ Q }3 ${ YTD }`
     });
   });
 });

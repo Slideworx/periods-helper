@@ -7,15 +7,15 @@ export const types = {
 
   H: 'H', 
   HRY: 'HRY',
-  HYTD: 'HYTD',
+  HYTD: 'HYTD', /*  */
 
-  Q: 'Q',
-  QRY: 'QRY',
-  QYTD: 'QYTD',
+  Q: 'Q', /* Quarter */
+  QRY: 'QRY', /* Rolling year (from quarters) */
+  QYTD: 'QYTD', /* Year-to-date (from quarters) */
 
   BM: 'BM', /* Two-month period */
-  BMRY: 'BMRY', /* 6 bi-months ending at the given BM */
-  BMYTD: 'BMYTD', /* Cumulative bi-months from beginning of the year */
+  BMRY: 'BMRY', /* Rolling year (from bi-months) */
+  BMYTD: 'BMYTD', /* Year-to-date (from bi-months) */
 
   M: 'M', /* Month */
   MRY: 'MRY', /* Rolling year (from months) */
