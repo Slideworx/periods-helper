@@ -28,41 +28,44 @@ const {
   YTD = 'YTD'
 } = types;
 
+function doTest(text, type, result) {
+  if (result !== null) {
+    result = getPeriod(result);
+  }
+
+  expect(getDate(text, type)).toEqual(result);
+}
+
 describe(dictionary[Y].label, () => {
   test(Y, () => {
-    const text = '2020';
-
-    expect(getDate(text, Y)).toEqual({
-      date: {
-        from: new Date(2020, 0, 1),
-        to: new Date(2020, 11, 31, 23, 59, 59)
-      },
-      type: Y,
-      value: '2020'
-    });
+    doTest('2020', Y, 'Y_2020');
   });
 
   test(`${ Y } - negative year`, () => {
-    const text = '-2020';
-
-    expect(getDate(text, Y)).toEqual(null);
+    doTest('-2020', Y, null);
   });
 
   test(H, () => {
-    const text = '2018 H1';
-
-    expect(getDate(text, H)).toEqual(getPeriod('H_2018_1'));
+    doTest('2018 H1', H, 'H_2018_1');
   });
 
-  test(`${ H } - 2`, () => {
-    const text = '2018 h1';
-
-    expect(getDate(text, H)).toEqual(getPeriod('H_2018_1'));
+  test(`${ H } - small letter`, () => {
+    doTest('2018 h1', H, 'H_2018_1');
   });
 
   test(`${ H } - negative half year`, () => {
-    const text = '2018 H-1';
+    doTest('2018 H-1', H, null);
+  });
 
-    expect(getDate(text, H)).toEqual(null);
+  test(HRY, () => {
+    doTest('2019 H1 RY', HRY, 'HRY_2019_1');
+  });
+
+  test(`${ HRY } - negative half year`, () => {
+    doTest('2019 H-1 RY', HRY, null);
+  });
+
+  test(`${ HRY } - double HH`, () => {
+    doTest('2019 HH1 RY', HRY, null);
   });
 });

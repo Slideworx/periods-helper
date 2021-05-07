@@ -36,11 +36,11 @@ function bindRegexFuncs(regex, propertyNames, toNotation) {
       const match = regex.exec(text);
 
       const result = {};
-      console.log(text, match)
+
       for (let i = 1; i < match.length; i++) {
         result[propertyNames[i - 1]] = match[i];
       }
-      console.log(result);
+
       return result;
     },
     getNotation: (text) => {
@@ -70,6 +70,12 @@ export function getDate(text, type) {
       ['year', 'halfYear'],
       ({year, halfYear}) => `H_${ year }_${ halfYear }`
     );
+  } else if  (type === HRY) {
+    regexFuncs = bindRegexFuncs(
+      /^(\d{4}) H(\d{1}) RY/i,
+      ['year', 'halfYear'],
+      ({ year, halfYear }) => `HRY_${ year }_${ halfYear }`
+    );
   }
 
   if (!regexFuncs.validate(text)) {
@@ -79,7 +85,6 @@ export function getDate(text, type) {
   let period;
 
   try {
-    console.log(text, regexFuncs.getNotation(text))
     period = getPeriod(regexFuncs.getNotation(text), type);
   } catch (e) {
     period = null;
