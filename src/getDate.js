@@ -1,4 +1,66 @@
+import { types } from './types';
+import { getPeriod } from './getPeriod';
+
+const {
+  Y,
+
+  H,
+  HRY,
+  HYTD,
+
+  Q,
+  QRY,
+  QYTD,
+
+  BM,
+  BMRY,
+  BMYTD,
+
+  M,
+  MRY,
+  MYTD,
+
+  W,
+  WYTD,
+
+  RY = 'RY',
+  YTD = 'YTD'
+} = types;
+
+function isValidByRegex(text, regex) {
+  return !!text.match(regex);
+}
+
+/* 
+  e.g. 2018 -> Y_2018
+*/
+function validateY(text) {
+  return isValidByRegex(text, /^\d{4}$/i);
+}
+
 export function getDate(text, type) {
+  let valid = false;
+
+  if (type === Y) {
+    valid = validateY(text);
+    text = `${ Y }_${ text }`;
+  } else {
+    throw new Error('Invalid type');
+  }
+
+  if (!valid) {
+    return null;
+  }
+
+  let period;
+  
+  try {
+    period = getPeriod(text, type);
+  } catch (e) {
+    period = null;
+  }
+
+  return period;
   /*
   Y -> 2020
   H -> 2020 H1 // borders?
@@ -16,5 +78,4 @@ export function getDate(text, type) {
   W -> 2020 W01 // numberOfWeeks > week > 0
   WYTD -> 2020 W01 ?? ^
   */
- return null;
 }
