@@ -1,5 +1,6 @@
 import { dictionary, types } from '.';
 import { getDate } from './getDate';
+import { getPeriod } from './getPeriod';
 
 const {
   Y,
@@ -45,5 +46,23 @@ describe(dictionary[Y].label, () => {
     const text = '-2020';
 
     expect(getDate(text, Y)).toEqual(null);
+  });
+
+  test(H, () => {
+    const text = '2018 H1';
+
+    expect(getDate(text, H)).toEqual(getPeriod('H_2018_1'));
+  });
+
+  test(`${ H } - 2`, () => {
+    const text = '2018 h1';
+
+    expect(getDate(text, H)).toEqual(getPeriod('H_2018_1'));
+  });
+
+  test(`${ H } - negative half year`, () => {
+    const text = '2018 H-1';
+
+    expect(getDate(text, H)).toEqual(null);
   });
 });
