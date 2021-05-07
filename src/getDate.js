@@ -56,7 +56,7 @@ function bindRegexFuncs(regex, propertyNames, toNotation) {
 export function getDate(text, type) {
   let regexFuncs = null;
 
-  text = text.toUpperCase();
+  text = text.toUpperCase().replace(/\s\s+/g, ' ').trim();
 
   if (type === Y) {
     regexFuncs = bindRegexFuncs(
@@ -81,6 +81,18 @@ export function getDate(text, type) {
       /^(\d{4}) H(\d{1}) YTD/i,
       ['year', 'halfYear'],
       ({ year, halfYear }) => `HYTD_${ year }_${ halfYear }`
+    );
+  } else if (type === Q) {
+    regexFuncs = bindRegexFuncs(
+      /^(\d{4}) Q(\d{1})$/i,
+      ['year', 'quarterYear'],
+      ({ year, quarterYear }) => `Q_${ year }_${ quarterYear }`
+    );
+  } else if (type === QRY) {
+    regexFuncs = bindRegexFuncs(
+      /^(\d{4}) Q(\d{1}) RY$/i,
+      ['year', 'quarterYear'],
+      ({ year, quarterYear }) => `QRY_${ year }_${ quarterYear }`
     );
   }
 

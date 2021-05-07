@@ -76,4 +76,28 @@ describe(dictionary[Y].label, () => {
   test(`${ HYTD } - negative half year`, () => {
     doTest('2019 H-1 YTD', HYTD, null);
   });
+
+  test(Q, () => {
+    doTest('2018 Q2', Q, 'Q_2018_2');
+  });
+
+  test(`${ Q } - handle multiple spaces`, () => {
+    doTest('2018      Q2', Q, 'Q_2018_2');
+  });
+
+  test(`${ Q } - trim`, () => {
+    doTest('         2018 Q2     ', Q, 'Q_2018_2');
+  });
+
+  test(`${ Q } - negative quarter year`, () => {
+    doTest('2018 Q-2', Q, null);
+  });
+
+  test(QRY, () => {
+    doTest('2019 Q2 RY', QRY, 'QRY_2019_2');
+  });
+
+  test(`${ QRY } - negative quarter year` , () => {
+    doTest('2019 Q-2 RY', QRY, null);
+  });
 });
