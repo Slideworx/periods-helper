@@ -47,14 +47,9 @@ function addLeadingZero(number) {
 }
 
 function getISOWeeks(y) {
-  var d,
-    isLeap;
+  const d = new Date(y, 0, 1);
+  const isLeap = new Date(y, 1, 29).getMonth() === 1;
 
-  d = new Date(y, 0, 1);
-  isLeap = new Date(y, 1, 29).getMonth() === 1;
-
-  //check for a Jan 1 that's a Thursday or a leap year that has a 
-  //Wednesday jan 1. Otherwise it's 52
   return d.getDay() === 4 || isLeap && d.getDay() === 3 ? 53 : 52
 }
 
@@ -76,17 +71,12 @@ export function getPeriod(notation) {
   year = Number(year);
   number = Number(number);
 
-  function handleOverflow(quantity) {
-    if (number < 1 || number > quantity) {
-      year = year + Math.ceil((number - quantity) / quantity);
-      number = (number % quantity + quantity) % quantity || quantity;
-    }
-  }
-
   const result = {
     type,
     date: {}
   };
+
+  let newMonthFrom;
 
   switch (type) {
     case Y: {
@@ -99,8 +89,9 @@ export function getPeriod(notation) {
       result.date.to = new Date(
         year + 1,
         0,
-        0
+        1
       );
+      result.date.to.setSeconds(result.date.to.getSeconds() - 1);
 
       result.value = `${ year }`;
 
@@ -110,21 +101,22 @@ export function getPeriod(notation) {
     case H:
     case HRY:
     case HYTD: {
-      handleOverflow(2);
+      newMonthFrom = number > 0 ? 6 * (number - 1) : 6 * number;
 
       result.date.from = new Date(
         year,
-        6 * (number - 1),
+        newMonthFrom,
         1
       );
 
       result.date.to = new Date(
         year,
-        6 * number,
-        0
+        newMonthFrom + 6,
+        1
       );
+      result.date.to.setSeconds(result.date.to.getSeconds() - 1);
 
-      result.value = `${ year } ${ H }${ number }`;
+      result.value = `${ result.date.from.getFullYear() } ${ H }${ Math.floor((result.date.from.getMonth() + 1) / 6) + 1 }`;
 
       break;
     }
@@ -132,21 +124,22 @@ export function getPeriod(notation) {
     case Q:
     case QRY:
     case QYTD: {
-      handleOverflow(4);
+      newMonthFrom = number > 0 ? 3 * (number - 1) : 3 * number;
 
       result.date.from = new Date(
         year,
-        3 * (number - 1),
+        newMonthFrom,
         1
       );
 
       result.date.to = new Date(
         year,
-        3 * number,
-        0
+        newMonthFrom + 3,
+        1
       );
+      result.date.to.setSeconds(result.date.to.getSeconds() - 1);
 
-      result.value = `${ year } ${ Q }${ number }`;
+      result.value = `${ result.date.from.getFullYear() } ${ Q }${ Math.floor((result.date.from.getMonth() + 1)/ 3) + 1 }`;
 
       break;
     }
@@ -154,21 +147,22 @@ export function getPeriod(notation) {
     case BM:
     case BMRY:
     case BMYTD: {
-      handleOverflow(6);
+      newMonthFrom = number > 0 ? 2 * (number - 1) : 2 * number;
 
       result.date.from = new Date(
         year,
-        2 * (number - 1),
+        newMonthFrom,
         1
       );
 
       result.date.to = new Date(
         year,
-        2 * number,
-        0
+        newMonthFrom + 2,
+        1
       );
+      result.date.to.setSeconds(result.date.to.getSeconds() - 1);
 
-      result.value = `${ year }.${ addLeadingZero(2 * number - 1) }/${ addLeadingZero(2 * number) }`;
+      result.value = `${ result.date.from.getFullYear() }.${ addLeadingZero(result.date.from.getMonth() + 1) }/${ addLeadingZero(result.date.to.getMonth() + 1) }`;
 
       break;
     }
@@ -176,33 +170,46 @@ export function getPeriod(notation) {
     case M:
     case MRY:
     case MYTD: {
-      handleOverflow(12);
+      newMonthFrom = number > 0 ? number - 1 : number;
 
       result.date.from = new Date(
         year,
-        number - 1,
+        newMonthFrom,
         1
       );
 
       result.date.to = new Date(
         year,
-        number,
-        0
+        newMonthFrom + 1,
+        1
       );
+      result.date.to.setSeconds(result.date.to.getSeconds() - 1);
 
-      result.value = `${ year }.${ addLeadingZero(number) }`;
+      result.value = `${ result.date.from.getFullYear() }.${ addLeadingZero(result.date.from.getMonth() + 1) }`;
 
       break;
     }
 
     case W:
-    case WYTD: {      
+    case WYTD: {
       if (number < 0) {
-        const newYear = year - 1;
-        const noOfWeeksInYear = getISOWeeks(newYear);
-        const newWeekNo = noOfWeeksInYear + number + 1;
-        
-        const tempResult = getPeriod(`${W}_${newYear}_${newWeekNo}`);
+        let nYear = year;
+        let nNumber = number;
+        let currentNYearWeeks;
+
+        while (true) {
+          nYear--;
+          currentNYearWeeks = getISOWeeks(nYear);
+
+          if (Math.abs(nNumber) > currentNYearWeeks) {
+            nNumber += currentNYearWeeks;
+          } else {
+            nNumber = currentNYearWeeks + nNumber + 1;
+            break;
+          }
+        }
+
+        const tempResult = getPeriod(`${W}_${nYear}_${nNumber}`);
 
         result.date = tempResult.date;
         result.value = tempResult.value;
@@ -223,7 +230,7 @@ export function getPeriod(notation) {
 
         result.date.from = ISOweekStart;
         result.date.to = ISOweekEnd;
-        result.value = `${ year } ${ W }${ addLeadingZero(number) }`;
+        result.value = `${year} ${W}${addLeadingZero(number)}`;
       }
 
       break;
@@ -234,29 +241,25 @@ export function getPeriod(notation) {
     }
   }
 
-  switch (true) {
-    case type.includes(RY): {
-      result.date.from = new Date(
-        year - 1,
-        result.date.to.getMonth() + 1,
-        1
-      );
+  if (type.includes(RY)) {
+    result.date.from = new Date(
+      result.date.to.getFullYear(),
+      result.date.to.getMonth() + 1 - 12,
+      1
+    );
 
-      result.value = `${ result.value } ${ RY }`;
+    result.value = `${result.value} ${RY}`;
+  } else if (type.includes(YTD)) {
+    result.date.from = new Date(
+      result.date.from.getFullYear(),
+      0,
+      1
+    );
 
-      break;
-    }
+    result.value = `${result.value} ${YTD}`;
 
-    case type.includes(YTD): {
-      result.date.from = new Date(
-        year,
-        0,
-        1
-      );
-
-      result.value = `${ result.value } ${ YTD }`;
-
-      break;
+    if (type.includes(WYTD)) {
+      result.date.from = getPeriod(`W_${year}_1`).date.from;
     }
   }
 

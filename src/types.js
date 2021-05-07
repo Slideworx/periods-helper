@@ -3,24 +3,24 @@
  * @access public
  */
 export const types = {
-  Y: 'Y',
+  Y: 'Y', /* Year */
 
-  H: 'H',
-  HRY: 'HRY',
-  HYTD: 'HYTD',
+  H: 'H', /* Half-year */
+  HRY: 'HRY', /* Rolling year (from half-years) */
+  HYTD: 'HYTD', /* Year-to-date (from half-years)  */
 
-  Q: 'Q',
-  QRY: 'QRY',
-  QYTD: 'QYTD',
+  Q: 'Q', /* Quarter */
+  QRY: 'QRY', /* Rolling year (from quarters) */
+  QYTD: 'QYTD', /* Year-to-date (from quarters) */
 
-  BM: 'BM',
-  BMRY: 'BMRY',
-  BMYTD: 'BMYTD',
+  BM: 'BM', /* Two-month period */
+  BMRY: 'BMRY', /* Rolling year (from bi-months) */
+  BMYTD: 'BMYTD', /* Year-to-date (from bi-months) */
 
-  M: 'M',
-  MRY: 'MRY',
-  MYTD: 'MYTD',
+  M: 'M', /* Month */
+  MRY: 'MRY', /* Rolling year (from months) */
+  MYTD: 'MYTD', /* Year-to-date (from months) */
 
-  W: 'W',
-  WYTD: 'WYTD'
+  W: 'W', /* Week */
+  WYTD: 'WYTD' /* Year-to-date (from weeks) */
 };

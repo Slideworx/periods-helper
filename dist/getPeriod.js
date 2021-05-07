@@ -36,9 +36,8 @@ function addLeadingZero(number) {
 }
 
 function getISOWeeks(y) {
-  var d, isLeap;
-  d = new Date(y, 0, 1);
-  isLeap = new Date(y, 1, 29).getMonth() === 1;
+  var d = new Date(y, 0, 1);
+  var isLeap = new Date(y, 1, 29).getMonth() === 1;
   return d.getDay() === 4 || isLeap && d.getDay() === 3 ? 53 : 52;
 }
 
@@ -51,24 +50,18 @@ function getPeriod(notation) {
 
   year = Number(year);
   number = Number(number);
-
-  function handleOverflow(quantity) {
-    if (number < 1 || number > quantity) {
-      year = year + Math.ceil((number - quantity) / quantity);
-      number = (number % quantity + quantity) % quantity || quantity;
-    }
-  }
-
   var result = {
     type: type,
     date: {}
   };
+  var newMonthFrom;
 
   switch (type) {
     case Y:
       {
         result.date.from = new Date(year, 0, 1);
-        result.date.to = new Date(year + 1, 0, 0);
+        result.date.to = new Date(year + 1, 0, 1);
+        result.date.to.setSeconds(result.date.to.getSeconds() - 1);
         result.value = "".concat(year);
         break;
       }
@@ -77,10 +70,11 @@ function getPeriod(notation) {
     case HRY:
     case HYTD:
       {
-        handleOverflow(2);
-        result.date.from = new Date(year, 6 * (number - 1), 1);
-        result.date.to = new Date(year, 6 * number, 0);
-        result.value = "".concat(year, " ").concat(H).concat(number);
+        newMonthFrom = number > 0 ? 6 * (number - 1) : 6 * number;
+        result.date.from = new Date(year, newMonthFrom, 1);
+        result.date.to = new Date(year, newMonthFrom + 6, 1);
+        result.date.to.setSeconds(result.date.to.getSeconds() - 1);
+        result.value = "".concat(result.date.from.getFullYear(), " ").concat(H).concat(Math.floor((result.date.from.getMonth() + 1) / 6) + 1);
         break;
       }
 
@@ -88,10 +82,11 @@ function getPeriod(notation) {
     case QRY:
     case QYTD:
       {
-        handleOverflow(4);
-        result.date.from = new Date(year, 3 * (number - 1), 1);
-        result.date.to = new Date(year, 3 * number, 0);
-        result.value = "".concat(year, " ").concat(Q).concat(number);
+        newMonthFrom = number > 0 ? 3 * (number - 1) : 3 * number;
+        result.date.from = new Date(year, newMonthFrom, 1);
+        result.date.to = new Date(year, newMonthFrom + 3, 1);
+        result.date.to.setSeconds(result.date.to.getSeconds() - 1);
+        result.value = "".concat(result.date.from.getFullYear(), " ").concat(Q).concat(Math.floor((result.date.from.getMonth() + 1) / 3) + 1);
         break;
       }
 
@@ -99,10 +94,11 @@ function getPeriod(notation) {
     case BMRY:
     case BMYTD:
       {
-        handleOverflow(6);
-        result.date.from = new Date(year, 2 * (number - 1), 1);
-        result.date.to = new Date(year, 2 * number, 0);
-        result.value = "".concat(year, ".").concat(addLeadingZero(2 * number - 1), "/").concat(addLeadingZero(2 * number));
+        newMonthFrom = number > 0 ? 2 * (number - 1) : 2 * number;
+        result.date.from = new Date(year, newMonthFrom, 1);
+        result.date.to = new Date(year, newMonthFrom + 2, 1);
+        result.date.to.setSeconds(result.date.to.getSeconds() - 1);
+        result.value = "".concat(result.date.from.getFullYear(), ".").concat(addLeadingZero(result.date.from.getMonth() + 1), "/").concat(addLeadingZero(result.date.to.getMonth() + 1));
         break;
       }
 
@@ -110,10 +106,11 @@ function getPeriod(notation) {
     case MRY:
     case MYTD:
       {
-        handleOverflow(12);
-        result.date.from = new Date(year, number - 1, 1);
-        result.date.to = new Date(year, number, 0);
-        result.value = "".concat(year, ".").concat(addLeadingZero(number));
+        newMonthFrom = number > 0 ? number - 1 : number;
+        result.date.from = new Date(year, newMonthFrom, 1);
+        result.date.to = new Date(year, newMonthFrom + 1, 1);
+        result.date.to.setSeconds(result.date.to.getSeconds() - 1);
+        result.value = "".concat(result.date.from.getFullYear(), ".").concat(addLeadingZero(result.date.from.getMonth() + 1));
         break;
       }
 
@@ -121,10 +118,23 @@ function getPeriod(notation) {
     case WYTD:
       {
         if (number < 0) {
-          var newYear = year - 1;
-          var noOfWeeksInYear = getISOWeeks(newYear);
-          var newWeekNo = noOfWeeksInYear + number + 1;
-          var tempResult = getPeriod("".concat(W, "_").concat(newYear, "_").concat(newWeekNo));
+          var nYear = year;
+          var nNumber = number;
+          var currentNYearWeeks;
+
+          while (true) {
+            nYear--;
+            currentNYearWeeks = getISOWeeks(nYear);
+
+            if (Math.abs(nNumber) > currentNYearWeeks) {
+              nNumber += currentNYearWeeks;
+            } else {
+              nNumber = currentNYearWeeks + nNumber + 1;
+              break;
+            }
+          }
+
+          var tempResult = getPeriod("".concat(W, "_").concat(nYear, "_").concat(nNumber));
           result.date = tempResult.date;
           result.value = tempResult.value;
         } else {
@@ -155,20 +165,16 @@ function getPeriod(notation) {
       }
   }
 
-  switch (true) {
-    case type.includes(RY):
-      {
-        result.date.from = new Date(year - 1, result.date.to.getMonth() + 1, 1);
-        result.value = "".concat(result.value, " ").concat(RY);
-        break;
-      }
+  if (type.includes(RY)) {
+    result.date.from = new Date(result.date.to.getFullYear(), result.date.to.getMonth() + 1 - 12, 1);
+    result.value = "".concat(result.value, " ").concat(RY);
+  } else if (type.includes(YTD)) {
+    result.date.from = new Date(result.date.from.getFullYear(), 0, 1);
+    result.value = "".concat(result.value, " ").concat(YTD);
 
-    case type.includes(YTD):
-      {
-        result.date.from = new Date(year, 0, 1);
-        result.value = "".concat(result.value, " ").concat(YTD);
-        break;
-      }
+    if (type.includes(WYTD)) {
+      result.date.from = getPeriod("W_".concat(year, "_1")).date.from;
+    }
   }
 
   return result;

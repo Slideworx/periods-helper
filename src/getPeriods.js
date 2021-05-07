@@ -60,7 +60,7 @@ export function getPeriods(notation, range) {
   number = Number(number);
 
   const ascending = range > 0;
-  const quantity = Math.abs(range);
+  let quantity = Math.abs(range);
 
   const result = [];
 
@@ -91,8 +91,41 @@ export function getPeriods(notation, range) {
 
     case W:
     case WYTD: {
-      for (let i = 0; i < quantity; i++) {
-        result[ascending ? 'push' : 'unshift'](`${ type }_${ year }_${ ascending ? number + i : ((number - i) || number - i - 1) }`);
+      let i = ascending ? 0 : quantity;
+      if (!ascending) {
+        quantity = 0;
+      }
+      const condition = () => {
+        if (ascending) {
+          return i < quantity;
+        } else {
+          return i > quantity;
+        }
+      };
+      const finalExpression = () => {
+        if (ascending) {
+          i++;
+        } else {
+          i--;
+        }
+      };
+      
+      while(condition()) {
+        const nextNumber = ascending ? number + i : (number - i);
+
+        if (nextNumber === 0) {
+          quantity--;
+          finalExpression();
+          continue;
+        }
+
+        result[ascending ? 'push' : 'unshift'](`${type}_${year}_${nextNumber}`);
+
+        finalExpression();
+      }
+
+      if (!ascending) {
+        result.reverse();
       }
 
       break;

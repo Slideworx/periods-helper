@@ -67,8 +67,43 @@ function getPeriods(notation, range) {
     case W:
     case WYTD:
       {
-        for (var _i = 0; _i < quantity; _i++) {
-          result[ascending ? 'push' : 'unshift']("".concat(type, "_").concat(year, "_").concat(ascending ? number + _i : number - _i || number - _i - 1));
+        var _i = ascending ? 0 : quantity;
+
+        if (!ascending) {
+          quantity = 0;
+        }
+
+        var condition = function condition() {
+          if (ascending) {
+            return _i < quantity;
+          } else {
+            return _i > quantity;
+          }
+        };
+
+        var finalExpression = function finalExpression() {
+          if (ascending) {
+            _i++;
+          } else {
+            _i--;
+          }
+        };
+
+        while (condition()) {
+          var nextNumber = ascending ? number + _i : number - _i;
+
+          if (nextNumber === 0) {
+            quantity--;
+            finalExpression();
+            continue;
+          }
+
+          result[ascending ? 'push' : 'unshift']("".concat(type, "_").concat(year, "_").concat(nextNumber));
+          finalExpression();
+        }
+
+        if (!ascending) {
+          result.reverse();
         }
 
         break;
