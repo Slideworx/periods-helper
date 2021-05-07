@@ -68,4 +68,12 @@ describe(dictionary[Y].label, () => {
   test(`${ HRY } - double HH`, () => {
     doTest('2019 HH1 RY', HRY, null);
   });
+
+  test(HYTD, () => {
+    doTest('2019 H1 YTD', HYTD, 'HYTD_2019_1');
+  });
+
+  test(`${ HYTD } - negative half year`, () => {
+    doTest('2019 H-1 YTD', HYTD, null);
+  });
 });

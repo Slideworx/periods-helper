@@ -70,11 +70,17 @@ export function getDate(text, type) {
       ['year', 'halfYear'],
       ({year, halfYear}) => `H_${ year }_${ halfYear }`
     );
-  } else if  (type === HRY) {
+  } else if (type === HRY) {
     regexFuncs = bindRegexFuncs(
       /^(\d{4}) H(\d{1}) RY/i,
       ['year', 'halfYear'],
       ({ year, halfYear }) => `HRY_${ year }_${ halfYear }`
+    );
+  } else if (type === HYTD) {
+    regexFuncs = bindRegexFuncs(
+      /^(\d{4}) H(\d{1}) YTD/i,
+      ['year', 'halfYear'],
+      ({ year, halfYear }) => `HYTD_${ year }_${ halfYear }`
     );
   }
 
