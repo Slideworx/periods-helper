@@ -27,7 +27,12 @@ const {
   YTD = 'YTD'
 } = types;
 
-function bindRegexFuncs(regex, propertyNames, toNotation) {
+function bindRegexFuncs(
+  regex, 
+  propertyNames, 
+  toNotation, 
+  dataValidation = () => true
+) {
   const functions =  {
     validate: (text) => {
       return !!text.match(regex);
@@ -46,6 +51,10 @@ function bindRegexFuncs(regex, propertyNames, toNotation) {
     getNotation: (text) => {
       const values = functions.getValues(text);
 
+      if (!dataValidation(values)) {
+        return null;
+      }
+
       return toNotation(values);
     }
   };
@@ -57,6 +66,22 @@ export function getDate(text, type) {
   let regexFuncs = null;
 
   text = text.toUpperCase().replace(/\s\s+/g, ' ').trim();
+
+  const bmValidationFunc = ({ firstMonth, secondMonth }) => {
+    if (Number(secondMonth) - Number(firstMonth) !== 1) {
+      return false;
+    }
+
+    if (Number(firstMonth) % 2 === 0) {
+      return false;
+    }
+
+    if (Number(firstMonth) > 12 || Number(secondMonth) > 12) {
+      return false;
+    }
+
+    return true;
+  };
 
   if (type === Y) {
     regexFuncs = bindRegexFuncs(
@@ -93,6 +118,33 @@ export function getDate(text, type) {
       /^(\d{4}) Q(\d{1}) RY$/i,
       ['year', 'quarterYear'],
       ({ year, quarterYear }) => `QRY_${ year }_${ quarterYear }`
+    );
+  } else if (type === QYTD) {
+    regexFuncs = bindRegexFuncs(
+      /^(\d{4}) Q(\d{1}) YTD$/i,
+      ['year', 'quarterYear'],
+      ({ year, quarterYear }) => `QYTD_${ year }_${ quarterYear }`
+    );
+  } else if (type === BM) {
+    regexFuncs = bindRegexFuncs(
+      /^(\d{4})\.(\d{2})\/(\d{2})$/i,
+      ['year', 'firstMonth', 'secondMonth'],
+      ({ year, firstMonth }) => `${ BM }_${ year }_${ Math.floor(Number(firstMonth) / 2) + 1 }`,
+      bmValidationFunc
+    );
+  } else if (type === BMRY) {
+    regexFuncs = bindRegexFuncs(
+      /^(\d{4})\.(\d{2})\/(\d{2}) RY$/i,
+      ['year', 'firstMonth', 'secondMonth'],
+      ({ year, firstMonth }) => `${ BMRY }_${ year }_${ Math.floor(Number(firstMonth) / 2) + 1 }`,
+      bmValidationFunc
+    );
+  } else if (type === BMYTD) {
+    regexFuncs = bindRegexFuncs(
+      /^(\d{4})\.(\d{2})\/(\d{2}) YTD$/i,
+      ['year', 'firstMonth', 'secondMonth'],
+      ({ year, firstMonth }) => `${ BMYTD }_${ year }_${ Math.floor(Number(firstMonth) / 2) + 1 }`,
+      bmValidationFunc
     );
   }
 

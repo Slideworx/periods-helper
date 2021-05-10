@@ -100,4 +100,68 @@ describe(dictionary[Y].label, () => {
   test(`${ QRY } - negative quarter year` , () => {
     doTest('2019 Q-2 RY', QRY, null);
   });
+
+  test(QYTD, () => {
+    doTest('2019 Q1 YTD', QYTD, 'QYTD_2019_1');
+  });
+
+  test(`${ QYTD } - negative quarter year`, () => {
+    doTest('2019 Q-2 YTD', QYTD, null);
+  });
+
+  test(BM, () => {
+    doTest('2019.01/02', BM, 'BM_2019_1');
+  });
+
+  test(`${ BM } - 2`, () => {
+    doTest('2019.11/12', BM, 'BM_2019_6');
+  });
+
+  test(`${ BM } - wrong bi-months`, () => {
+    doTest('2019.01/03', BM, null);
+  });
+
+  test(`${ BM } - wrong first bi-month`, () => {
+    doTest('2019.02/03', BM, null);
+  });
+
+  test(`${ BM } - negative first bi-month`, () => {
+    doTest('2019.-02/03', BM, null);
+  });
+
+  test(`${ BM } - big first bi-month`, () => {
+    doTest('2019.13/14', BM, null);
+  });
+
+  test(`${ BMRY }`, () => {
+    doTest('2019.01/02 RY', BMRY, 'BMRY_2019_1');
+  });
+
+  test(`${ BMRY } - wrong first bi-month`, () => {
+    doTest('2019.02/03 RY', BMRY, null);
+  });
+
+  test(`${ BMRY } - negative first bi-month`, () => {
+    doTest('2019.-02/03 RY', BMRY, null);
+  });
+
+  test(`${ BMRY } - big first bi-month`, () => {
+    doTest('2019.13/14', BMRY, null);
+  });
+
+  test(`${ BMYTD }`, () => {
+    doTest('2019.01/02 YTD', BMYTD, 'BMYTD_2019_1');
+  });
+
+  test(`${ BMYTD } - wrong first bi-month`, () => {
+    doTest('2019.02/03 YTD', BMYTD, null);
+  });
+
+  test(`${ BMYTD } - negative first bi-month`, () => {
+    doTest('2019.-02/03 YTD', BMYTD, null);
+  });
+
+  test(`${ BMYTD } - big first bi-month`, () => {
+    doTest('2019.13/14', BMYTD, null);
+  });
 });
