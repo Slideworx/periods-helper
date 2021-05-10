@@ -200,4 +200,36 @@ describe(dictionary[Y].label, () => {
   test(`${ MYTD } - big month`, () => {
     doTest('2019.23 YTD', MYTD, null);
   });
+
+  test(W, () => {
+    doTest('2019 W52', W, 'W_2019_52');
+  });
+
+  test(`${ W } - negative week`, () => {
+    doTest('2019 W-11', W, null);
+  });
+
+  test(`${ W } - not adjusted week`, () => {
+    doTest('2019 W1', W, null);
+  });
+
+  test(`${ W } - big week`, () => {
+    doTest('2019 W111', W, null);
+  });
+
+  test(WYTD, () => {
+    doTest('2020 W10 YTD', WYTD, 'WYTD_2020_10');
+  });
+
+  test(`${ WYTD } - negative week`, () => {
+    doTest('2020 W-10 YTD', WYTD, null);
+  });
+
+  test(`${ WYTD } - not adjusted week`, () => {
+    doTest('2019 W1 YTD', WYTD, null);
+  });
+
+  test(`${ WYTD } - big week`, () => {
+    doTest('2019 W111 YTD', WYTD, null);
+  });
 });

@@ -175,6 +175,18 @@ export function getDate(text, type) {
       ({ year, month }) => `${ MYTD }_${ year }_${ month }`,
       mValidationFunc
     )
+  } else if (type === W) {
+    regexFuncs = bindRegexFuncs(
+      /^(\d{4}) W(\d{2})$/i,
+      ['year', 'week'],
+      ({ year, week }) => `${ W }_${ year }_${ week }`
+    );
+  } else if (type === WYTD) {
+    regexFuncs = bindRegexFuncs(
+      /^(\d{4}) W(\d{2}) YTD$/i,
+      ['year', 'week'],
+      ({ year, week }) => `${ WYTD }_${ year }_${ week }`
+    );
   }
 
   if (!regexFuncs.validate(text)) {
