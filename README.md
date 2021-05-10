@@ -1,7 +1,5 @@
 # Periods helper
 
-[![Dependencies status][dependencies]][dependencies-url]
-[![Release status][release]][release-url]
 
 JavaScript library for parsing and formatting periods.
 
@@ -43,6 +41,8 @@ import {getPeriods} from '@mtab/periods-helper';
 getPeriods('Q_2020_1', 10);
 ```
 
+Period range CAN be negative.
+
 ### getType
 
 ```js
@@ -51,14 +51,18 @@ import {getType} from '@mtab/periods-helper';
 getType('2020 Q1');
 ```
 
+### getDate
+```js
+import {types} from '@mtab/periods-helper';
+import {getDate} from '@mtab/periods-helper';
+
+getDate('2019 H1 YTD', types.HYTD);
+```
+
 ### types
 
 ```js
 import {types} from '@mtab/periods-helper';
 ```
 
-[dependencies]: https://img.shields.io/librariesio/github/Slideworx/periods-helper
-[release]: https://img.shields.io/github/v/release/Slideworx/periods-helper
-
-[dependencies-url]: https://github.com/Slideworx/periods-helper/network/dependencies
-[release-url]: https://github.com/Slideworx/periods-helper/releases
+More example you can find in test files.

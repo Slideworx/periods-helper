@@ -81,3 +81,16 @@ Object.keys(_types).forEach(function (key) {
     }
   });
 });
+
+var _getDate = require("./getDate");
+
+Object.keys(_getDate).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _getDate[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _getDate[key];
+    }
+  });
+});
