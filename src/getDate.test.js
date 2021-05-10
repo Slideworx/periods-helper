@@ -164,4 +164,40 @@ describe(dictionary[Y].label, () => {
   test(`${ BMYTD } - big first bi-month`, () => {
     doTest('2019.13/14', BMYTD, null);
   });
+
+  test(M, () => {
+    doTest('2018.01', M, 'M_2018_1');
+  });
+
+  test(`${ M } - big month`, () => {
+    doTest('2018.13', M, null);
+  });
+
+  test(`${ M } - negative month`, () => {
+    doTest('2018.-10', M, null);
+  });
+
+  test(MRY, () => {
+    doTest('2019.09 RY', MRY, 'MRY_2019_9');
+  });
+
+  test(`${ MRY } - negative month`, () => {
+    doTest('2019.-09 RY', MRY, null);
+  });
+
+  test(`${ MRY } - big month`, () => {
+    doTest('2019.13 RY', MRY, null);
+  });
+
+  test(MYTD, () => {
+    doTest('2019.02 YTD', MYTD, 'MYTD_2019_2');
+  });
+
+  test(`${ MYTD } - negative month`, () => {
+    doTest('2019.-02 YTD', MYTD, null);
+  });
+
+  test(`${ MYTD } - big month`, () => {
+    doTest('2019.23 YTD', MYTD, null);
+  });
 });

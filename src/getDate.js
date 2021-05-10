@@ -83,6 +83,14 @@ export function getDate(text, type) {
     return true;
   };
 
+  const mValidationFunc = ({ month }) => {
+    if (Number(month) > 12) {
+      return false;
+    }
+
+    return true;
+  }
+
   if (type === Y) {
     regexFuncs = bindRegexFuncs(
       /^(\d{4})$/i, 
@@ -146,6 +154,27 @@ export function getDate(text, type) {
       ({ year, firstMonth }) => `${ BMYTD }_${ year }_${ Math.floor(Number(firstMonth) / 2) + 1 }`,
       bmValidationFunc
     );
+  } else if (type === M) {
+    regexFuncs = bindRegexFuncs(
+      /^(\d{4})\.(\d{2})$/i,
+      ['year', 'month'],
+      ({ year, month }) => `${ M }_${ year }_${ month }`,
+      mValidationFunc
+    );
+  } else if (type === MRY) {
+    regexFuncs = bindRegexFuncs(
+      /^(\d{4})\.(\d{2}) RY$/i,
+      ['year', 'month'],
+      ({ year, month }) => `${ MRY }_${year}_${month}`,
+      mValidationFunc
+    );
+  } else if (type === MYTD) {
+    regexFuncs = bindRegexFuncs(
+      /^(\d{4})\.(\d{2}) YTD$/i,
+      ['year', 'month'],
+      ({ year, month }) => `${ MYTD }_${ year }_${ month }`,
+      mValidationFunc
+    )
   }
 
   if (!regexFuncs.validate(text)) {
