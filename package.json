@@ -1,10 +1,14 @@
 {
-  "name": "@mtab/periods-helper-manager",
+  "name": "mtab-periods-helper",
   "version": "1.5.1",
   "description": "JavaScript library for parsing and formatting periods",
   "files": [
     "dist/"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "Slideworx/periods-helper",
   "main": "dist/index.js",
   "scripts": {
     "build": "babel --out-dir dist/ src/",

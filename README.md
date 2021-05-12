@@ -6,7 +6,7 @@ JavaScript library for parsing and formatting periods.
 ## Install
 
 ```
-npm install @mtab/periods-helper
+npm install mtab-periods-helper
 ```
 
 ## Usage
