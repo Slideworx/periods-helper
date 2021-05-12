@@ -37,6 +37,10 @@ function doTest(text, type, result) {
 }
 
 describe(dictionary[Y].label, () => {
+  test('type equals null', () => {
+    doTest('2020', null, null);
+  });
+
   test(Y, () => {
     doTest('2020', Y, 'Y_2020');
   });
@@ -57,6 +61,14 @@ describe(dictionary[Y].label, () => {
     doTest('2018 H-1', H, null);
   });
 
+  test(`${ H } - half year bigger than 2`, () => {
+    doTest('2018 H3', H, null);
+  });
+
+  test(`${ H } - half year equals 0`, () => {
+    doTest('2018 H0', H, null);
+  });
+
   test(HRY, () => {
     doTest('2019 H1 RY', HRY, 'HRY_2019_1');
   });
@@ -69,12 +81,28 @@ describe(dictionary[Y].label, () => {
     doTest('2019 HH1 RY', HRY, null);
   });
 
+  test(`${ HRY } - half year bigger than 2`, () => {
+    doTest('2018 H3 RY', HRY, null);
+  });
+
+  test(`${ HRY } - half year equals 0`, () => {
+    doTest('2018 H0 RY', HRY, null);
+  });
+
   test(HYTD, () => {
     doTest('2019 H1 YTD', HYTD, 'HYTD_2019_1');
   });
 
   test(`${ HYTD } - negative half year`, () => {
     doTest('2019 H-1 YTD', HYTD, null);
+  });
+
+  test(`${ HYTD } - half year bigger than 2`, () => {
+    doTest('2018 H3 YTD', HYTD, null);
+  });
+
+  test(`${ HYTD } - half year equals 0`, () => {
+    doTest('2018 H0 YTD', HYTD, null);
   });
 
   test(Q, () => {
@@ -93,6 +121,14 @@ describe(dictionary[Y].label, () => {
     doTest('2018 Q-2', Q, null);
   });
 
+  test(`${ Q } - half year bigger than 4`, () => {
+    doTest('2018 Q5', Q, null);
+  });
+
+  test(`${ Q } - half year equals 0`, () => {
+    doTest('2018 Q0', Q, null);
+  });
+
   test(QRY, () => {
     doTest('2019 Q2 RY', QRY, 'QRY_2019_2');
   });
@@ -101,12 +137,28 @@ describe(dictionary[Y].label, () => {
     doTest('2019 Q-2 RY', QRY, null);
   });
 
+  test(`${ QRY } - half year bigger than 4`, () => {
+    doTest('2018 Q5 RY', QRY, null);
+  });
+
+  test(`${ QRY } - half year equals 0`, () => {
+    doTest('2018 Q0 RY', QRY, null);
+  });
+
   test(QYTD, () => {
     doTest('2019 Q1 YTD', QYTD, 'QYTD_2019_1');
   });
 
   test(`${ QYTD } - negative quarter year`, () => {
     doTest('2019 Q-2 YTD', QYTD, null);
+  });
+
+  test(`${ QYTD } - half year bigger than 4`, () => {
+    doTest('2018 Q5 YTD', QYTD, null);
+  });
+
+  test(`${ QYTD } - half year equals 0`, () => {
+    doTest('2018 Q0 YTD', QYTD, null);
   });
 
   test(BM, () => {

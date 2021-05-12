@@ -61,6 +61,25 @@ function bindRegexFuncs(
   return functions;
 }
 
+const hValidationFunc = ({ halfYear }) => {
+  const halfYearNumber = Number(halfYear);
+
+  if (halfYearNumber > 2 || halfYearNumber === 0) {
+    return false
+  }
+
+  return true;
+}
+
+const qValidationFunc = (({ quarterYear }) => {
+  const quarterYearNumber = Number(quarterYear);
+
+  if (quarterYearNumber > 4 || quarterYearNumber === 0) {
+    return false;
+  }
+
+  return true;
+});
 
 const bmValidationFunc = ({ firstMonth, secondMonth }) => {
   if (Number(secondMonth) - Number(firstMonth) !== 1) {
@@ -101,37 +120,43 @@ export function getDate(text, type) {
     regexFuncs = bindRegexFuncs(
       `^(\\d{4}) ${ H }(\\d{1})$`,
       ['year', 'halfYear'],
-      ({year, halfYear}) => `${ H }_${ year }_${ halfYear }`
+      ({year, halfYear}) => `${ H }_${ year }_${ halfYear }`,
+      hValidationFunc
     );
   } else if (type === HRY) {
     regexFuncs = bindRegexFuncs(
       `^(\\d{4}) ${ H }(\\d{1}) RY$`,
       ['year', 'halfYear'],
-      ({ year, halfYear }) => `${ HRY }_${ year }_${ halfYear }`
+      ({ year, halfYear }) => `${ HRY }_${ year }_${ halfYear }`,
+      hValidationFunc
     );
   } else if (type === HYTD) {
     regexFuncs = bindRegexFuncs(
       `^(\\d{4}) ${ H }(\\d{1}) YTD$`,
       ['year', 'halfYear'],
-      ({ year, halfYear }) => `${ HYTD }_${ year }_${ halfYear }`
+      ({ year, halfYear }) => `${ HYTD }_${ year }_${ halfYear }`,
+      hValidationFunc
     );
   } else if (type === Q) {
     regexFuncs = bindRegexFuncs(
       `^(\\d{4}) ${ Q }(\\d{1})$`,
       ['year', 'quarterYear'],
-      ({ year, quarterYear }) => `${ Q }_${ year }_${ quarterYear }`
+      ({ year, quarterYear }) => `${ Q }_${ year }_${ quarterYear }`,
+      qValidationFunc
     );
   } else if (type === QRY) {
     regexFuncs = bindRegexFuncs(
       `^(\\d{4}) ${ Q }(\\d{1}) RY$`,
       ['year', 'quarterYear'],
-      ({ year, quarterYear }) => `${ QRY }_${ year }_${ quarterYear }`
+      ({ year, quarterYear }) => `${ QRY }_${ year }_${ quarterYear }`,
+      qValidationFunc
     );
   } else if (type === QYTD) {
     regexFuncs = bindRegexFuncs(
       `^(\\d{4}) ${ Q }(\\d{1}) YTD$`,
       ['year', 'quarterYear'],
-      ({ year, quarterYear }) => `${ QYTD }_${ year }_${ quarterYear }`
+      ({ year, quarterYear }) => `${ QYTD }_${ year }_${ quarterYear }`,
+      qValidationFunc
     );
   } else if (type === BM) {
     regexFuncs = bindRegexFuncs(
@@ -187,6 +212,8 @@ export function getDate(text, type) {
       ['year', 'week'],
       ({ year, week }) => `${ WYTD }_${ year }_${ week }`
     );
+  } else {
+    return null;
   }
 
   if (!regexFuncs.validate(text)) {
