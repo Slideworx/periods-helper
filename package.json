@@ -1,5 +1,5 @@
 {
-  "name": "@mtab/periods-helper",
+  "name": "@mtab/periods-helper-manager",
   "version": "1.5.1",
   "description": "JavaScript library for parsing and formatting periods",
   "files": [
